@@ -1,0 +1,85 @@
+body {
+  background-color: #0f172a;
+  box-sizing: border-box;
+}
+.mainDivHome {
+  /* background-color: #881337; */
+  margin: 5px auto;
+  height: max-content;
+  width: 1000px;
+  display: flex;
+  justify-content: space-around;
+}
+.topDiv {
+  justify-content: space-around;
+  height: max-content;
+  display: flex;
+  width: 1000px;
+  margin: 10px auto;
+  flex-direction: column;
+}
+.navBar {
+  width: max-content;
+  display: flex;
+  gap: 10px;
+  margin-right: 10px;
+}
+.navDiv {
+  /* background-color: red; */
+  /* margin: 0 auto; */
+}
+.h3Head {
+  margin-left: 10px;
+  background-image: linear-gradient(to right, red, rgb(13, 0, 255));
+  padding: 5px;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+}
+.linkItem {
+  text-decoration: none;
+  color: lightcyan;
+  transition: 0.5s;
+}
+
+.linkItem:hover {
+  color: #d45050;
+}
+.headLink {
+  text-decoration: none;
+}
+main {
+  /* background-color: #881337; */
+  box-sizing: border-box;
+  padding: 20px;
+  margin: 0 auto;
+  height: max-content;
+  width: 1000px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+.catDiv {
+  /* background-color: yellow; */
+  /* margin: 0 auto; */
+  margin-right: 100px;
+  align-items: center;
+}
+li {
+  list-style-type: none;
+}
+.AddBlogBtn {
+  text-decoration: none;
+  padding: 0 20px 0 20px;
+  background-image: linear-gradient(135deg, #3b82f6, #ef4444, #16a34a, #eab308);
+  color: white;
+  top: 2%;
+  width: max-content;
+  height: 30px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.AddBlogBtn:hover {
+  transform: scale(110%) rotate(-2deg);
+}

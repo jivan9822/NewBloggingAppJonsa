@@ -1,0 +1,17 @@
+.catEle {
+  padding: 5px;
+  width: 200px;
+  letter-spacing: 5px;
+  text-align: center;
+  font-family: 'Sono', sans-serif;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.catEle:hover {
+  transform: rotate(5deg) scale(1.1);
+}
+.catMainDiv {
+  margin: 0 auto;
+  /* background-color: red; */
+  max-width: fit-content;
+}

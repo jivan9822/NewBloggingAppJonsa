@@ -1,0 +1,49 @@
+.ulBlogs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+  margin-left: -100px;
+}
+
+.blogLi {
+  font-family: 'Sono', sans-serif;
+  background-color: #3b404b;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  align-items: center;
+  gap: 10px;
+}
+.thumb {
+  display: flex;
+}
+
+.thumb button {
+  border-radius: 50%;
+  border: none;
+  background-color: #38393c;
+  cursor: pointer;
+  text-align: center;
+  padding: 4px;
+}
+.secondDiv {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.caTegory {
+  width: fit-content;
+  height: fit-content;
+  padding: 3px;
+}
+.txt {
+  font-family: 'Sono', sans-serif;
+  color: white;
+}
+.txt a {
+  text-decoration: none;
+  color: black;
+}
