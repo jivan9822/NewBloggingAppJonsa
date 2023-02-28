@@ -1,5 +1,6 @@
 const { CatchAsync } = require('../Error/CatchAsync');
 const { setUserData } = require('../Middleware/redis');
+const Blog = require('../Model/blogModel');
 const User = require('../Model/userModel');
 
 exports.userSignUp = CatchAsync(async (req, res, next) => {
@@ -25,6 +26,38 @@ exports.userLogin = CatchAsync(async (req, res, next) => {
     data: {
       token: req.token,
       user: req.user,
+    },
+  });
+});
+
+exports.isValid = CatchAsync(async (req, res, next) => {
+  return res.status(200).json({
+    status: true,
+    message: 'success',
+    data: {
+      user: req.user,
+    },
+  });
+});
+
+exports.addBlog = CatchAsync(async (req, res, next) => {
+  const blog = await Blog.create(req.body);
+  res.status(201).json({
+    status: true,
+    message: 'Blog added success!',
+    data: {
+      blog,
+    },
+  });
+});
+
+exports.getAllBlogs = CatchAsync(async (req, res, next) => {
+  const blogs = await Blog.find();
+  res.status(200).json({
+    status: true,
+    message: 'Success!',
+    data: {
+      blogs,
     },
   });
 });

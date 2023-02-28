@@ -1,4 +1,4 @@
-import { React, Fragment, useState } from 'react';
+import { React, useState } from 'react';
 import homeCss from './Home.module.css';
 import { Link, Outlet } from 'react-router-dom';
 import LeDeco from './LiDecoration/LiDecor';
@@ -8,6 +8,7 @@ import ShareForm from './ShareBlog/ShareBlog';
 const HomePage = (props) => {
   const [addBlog, setAddBlog] = useState(false);
   const [displayBlogs, setDisplayBlogs] = useState(true);
+
   return (
     <div className={homeCss.topDiv}>
       <div>
@@ -52,11 +53,13 @@ const HomePage = (props) => {
             )}
           </div>
         </div>
-        {addBlog && <ShareForm />}
+        {addBlog && (
+          <ShareForm user={props.userData} setFacts={props.setFacts} />
+        )}
       </div>
       <main>
         <div className={homeCss.catDiv}>{displayBlogs && <LeDeco />}</div>
-        {displayBlogs && <Blogs />}
+        {displayBlogs && <Blogs facts={props.facts} />}
       </main>
       <Outlet />
     </div>

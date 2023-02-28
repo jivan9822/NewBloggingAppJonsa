@@ -23,7 +23,7 @@ exports.authenticate = CatchAsync(async (req, res, next) => {
   next();
 });
 
-exports.isValidUser = CatchAsync(async (req, res, next) => {
+exports.protect = CatchAsync(async (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) {
     return next(
@@ -36,14 +36,10 @@ exports.isValidUser = CatchAsync(async (req, res, next) => {
   const decode = await promisify(jwt.verify)(token, process.env.SEC_STRING);
   const user = await getUserData(decode.id); // from redis cache
   if (!user) {
+    res.cookie('jwt', null);
     return next(new AppError('You are not loggedIn! Please Login!', 401));
   }
+  req.user = user;
 
-  return res.status(200).json({
-    status: true,
-    message: 'success',
-    data: {
-      user,
-    },
-  });
+  next();
 });
