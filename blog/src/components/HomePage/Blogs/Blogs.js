@@ -1,7 +1,8 @@
-import InputForm from '../../UI/BlogForm';
 import Button from '../../UI/Button';
 import blogCss from './Blogs.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import EditBlog from '../ShareBlog/EditBlog';
+import DeleteBlog from '../ShareBlog/DeleteBlog';
 
 const CATEGORIES = [
   { name: 'technology', color: '#3b82f6' },
@@ -15,16 +16,27 @@ const CATEGORIES = [
 ];
 
 const Blogs = (props) => {
+  const id = props.userData ? props.userData._id : null;
   const [editMode, setEditMode] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const [editFact, setEditFact] = useState(null);
-  const onDeleteHandler = (e) => {
-    e.preventDefault();
-  };
   const fact = props.facts;
+
   return (
     <div>
+      {deleteId && (
+        <DeleteBlog
+          setFacts={props.setFacts}
+          id={deleteId}
+          setDeleteId={setDeleteId}
+        />
+      )}
       {editMode ? (
-        <InputForm setEditMode={setEditMode} editFact={editFact} />
+        <EditBlog
+          setEditMode={setEditMode}
+          editFact={editFact}
+          setFacts={props.setFacts}
+        />
       ) : (
         <ul className={blogCss.ulBlogs}>
           {fact.map((each) => {
@@ -55,14 +67,25 @@ const Blogs = (props) => {
                     </div>
                   </div>
                   <div className={blogCss.editDeleteBtn}>
-                    <Button
-                      onClick={() => {
-                        setEditMode(true);
-                        setEditFact(each);
-                      }}
-                      name='✏️'
-                    />
-                    <Button onClick={onDeleteHandler} name='❌' />
+                    {id === each.user && (
+                      <Button
+                        onClick={() => {
+                          setEditMode(true);
+                          setEditFact(each);
+                        }}
+                        name='✏️'
+                      />
+                    )}
+                    {id === each.user && (
+                      <Button
+                        name='❌'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (window.confirm('Are you sure?'))
+                            setDeleteId(each._id);
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
               </li>

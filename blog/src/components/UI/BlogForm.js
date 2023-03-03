@@ -13,13 +13,24 @@ const CATEGORIES = [
 ];
 
 const InputForm = (props) => {
-  const [text, setText] = useState('');
-  const [source, setSource] = useState('');
-  const [category, setCategory] = useState('');
+  const id = props.editFact ? props.editFact._id : null;
+  const [text, setText] = useState(props.editFact ? props.editFact.text : '');
+  const [source, setSource] = useState(
+    props.editFact ? props.editFact.source : ''
+  );
+  const [category, setCategory] = useState(
+    props.editFact ? props.editFact.category : ''
+  );
   const textLength = text.length;
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.getData({ text, source, category });
+    props.editFact
+      ? props.getData({ text, source, category, id })
+      : props.getData({ text, source, category });
+    props.editFact && props.setEditMode(false);
+    setText('');
+    setSource('');
+    setCategory('');
   };
   const onCancelHandler = (e) => {
     e.preventDefault();
@@ -30,14 +41,12 @@ const InputForm = (props) => {
       <textarea
         type='text'
         placeholder='Share a fact with the world...'
-        value={(props.editFact && props.editFact.text) || props.text || text}
+        value={text}
         onChange={(e) => setText(e.target.value)}
       />
       <span>{200 - textLength}</span>
       <input
-        value={
-          (props.editFact && props.editFact.source) || props.source || source
-        }
+        value={source}
         type='text'
         placeholder='Trustworthy source...'
         onChange={(e) => setSource(e.target.value)}
@@ -50,7 +59,9 @@ const InputForm = (props) => {
           </option>
         ))}
       </select>
-      <button className={classes.btn}>Post</button>
+      <button className={classes.btn}>
+        {props.editFact ? 'Update' : 'post'}
+      </button>
       {props.editFact && (
         <button className={classes.btn} onClick={onCancelHandler}>
           Cancel

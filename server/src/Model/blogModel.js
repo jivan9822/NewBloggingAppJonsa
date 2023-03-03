@@ -30,6 +30,10 @@ const blogSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
     status: {
       type: String,
       enum: ['pending', 'approved', 'rejected'],
@@ -38,6 +42,11 @@ const blogSchema = mongoose.Schema(
   },
   { timestamp: true }
 );
+
+blogSchema.pre(/^find/, function (next) {
+  this.find({ isDeleted: false });
+  next();
+});
 
 const Blog = mongoose.model('Blog', blogSchema);
 module.exports = Blog;

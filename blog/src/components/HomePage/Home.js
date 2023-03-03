@@ -9,6 +9,13 @@ const HomePage = (props) => {
   const [addBlog, setAddBlog] = useState(false);
   const [name, setName] = useState('AddBlog');
   const [displayBlogs, setDisplayBlogs] = useState(true);
+  const [filterName, getFilterName] = useState('All');
+  let newArr;
+  if (filterName === 'All') {
+    newArr = props.facts;
+  } else {
+    newArr = props.facts.filter((each) => each.category === filterName);
+  }
 
   return (
     <div className={homeCss.topDiv}>
@@ -62,8 +69,16 @@ const HomePage = (props) => {
         )}
       </div>
       <main>
-        <div className={homeCss.catDiv}>{displayBlogs && <LeDeco />}</div>
-        {displayBlogs && <Blogs facts={props.facts} />}
+        <div className={homeCss.catDiv}>
+          {displayBlogs && <LeDeco getFilterName={getFilterName} />}
+        </div>
+        {displayBlogs && (
+          <Blogs
+            facts={newArr}
+            setFacts={props.setFacts}
+            userData={props.userData}
+          />
+        )}
       </main>
       <Outlet />
     </div>

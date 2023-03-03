@@ -41,6 +41,7 @@ exports.isValid = CatchAsync(async (req, res, next) => {
 });
 
 exports.addBlog = CatchAsync(async (req, res, next) => {
+  req.body.user = req.user._id;
   const blog = await Blog.create(req.body);
   res.status(201).json({
     status: true,
@@ -48,6 +49,27 @@ exports.addBlog = CatchAsync(async (req, res, next) => {
     data: {
       blog,
     },
+  });
+});
+
+exports.updateBlog = CatchAsync(async (req, res, next) => {
+  const blog = await Blog.findByIdAndUpdate(req.body.id, req.body, {
+    new: true,
+  });
+  res.status(200).json({
+    status: true,
+    message: 'Blog update success!',
+    data: {
+      blog,
+    },
+  });
+});
+
+exports.deleteBlog = CatchAsync(async (req, res, next) => {
+  const blog = await Blog.findByIdAndDelete({ _id: req.body.id });
+  res.status(204).json({
+    status: true,
+    data: null,
   });
 });
 

@@ -1,6 +1,7 @@
 import dec from './Dec.module.css';
 
 const CATEGORIES = [
+  { name: 'All', color: 'white' },
   { name: 'technology', color: '#3b82f6' },
   { name: 'science', color: '#16a34a' },
   { name: 'finance', color: '#ef4444' },
@@ -12,6 +13,10 @@ const CATEGORIES = [
 ];
 
 const LeDeco = (props) => {
+  const onClickHandler = (e) => {
+    props.getFilterName(e.target.id);
+    e.preventDefault();
+  };
   return (
     <div className={dec.catMainDiv}>
       {CATEGORIES.map((each, ind) => {
@@ -19,6 +24,8 @@ const LeDeco = (props) => {
           <p
             key={ind}
             className={dec.catEle}
+            id={each.name}
+            onClick={onClickHandler}
             style={{ backgroundColor: each.color }}
           >
             {each.name}

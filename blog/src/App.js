@@ -17,7 +17,7 @@ const App = () => {
       .get('/getblogs')
       .then((res) => {
         const blogs = res.data.data.blogs;
-        setFacts(blogs);
+        setFacts(blogs.reverse());
       })
       .catch((err) => {
         console.log(err);

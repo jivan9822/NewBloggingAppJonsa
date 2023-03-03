@@ -4,8 +4,17 @@
   gap: 10px;
   box-sizing: border-box;
   margin-left: -100px;
+  height: 800px;
+  overflow: auto;
 }
 
+.ulBlogs::-webkit-scrollbar {
+  display: none;
+}
+.ulBlogs {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 .blogLi {
   font-family: 'Sono', sans-serif;
   background-color: #3b404b;
