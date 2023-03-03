@@ -4,19 +4,22 @@ import { Link, Outlet } from 'react-router-dom';
 import LeDeco from './LiDecoration/LiDecor';
 import Blogs from './Blogs/Blogs';
 import ShareForm from './ShareBlog/ShareBlog';
+import UserProfile from './UserProfile/UserProfile';
 
 const HomePage = (props) => {
   const [addBlog, setAddBlog] = useState(false);
+  const [DisplayUser, setDisplayUser] = useState(false);
   const [name, setName] = useState('AddBlog');
   const [displayBlogs, setDisplayBlogs] = useState(true);
   const [filterName, getFilterName] = useState('All');
   let newArr;
   if (filterName === 'All') {
     newArr = props.facts;
+  } else if (filterName === 'MyBlog') {
+    newArr = props.facts.filter((each) => each.user === props.userData._id);
   } else {
     newArr = props.facts.filter((each) => each.category === filterName);
   }
-
   return (
     <div className={homeCss.topDiv}>
       <div>
@@ -24,7 +27,10 @@ const HomePage = (props) => {
           <Link className={homeCss.headLink} to='/'>
             <h3
               className={homeCss.h3Head}
-              onClick={() => setDisplayBlogs(true)}
+              onClick={() => {
+                setDisplayBlogs(true);
+                setDisplayUser(false);
+              }}
             >
               Welcome to the Blogging App
             </h3>
@@ -35,18 +41,28 @@ const HomePage = (props) => {
                 <h3
                   onClick={() => {
                     setAddBlog(!addBlog);
+                    setDisplayUser(false);
                     setName((old) => (old === 'Cancel' ? 'AddBlog' : 'Cancel'));
                   }}
                   className={homeCss.AddBlogBtn}
                 >
                   {name}
                 </h3>
-                <Link className={homeCss.linkItem} to='/myblog'>
-                  <h3>MyBlog</h3>
+                <Link className={homeCss.linkItem} to='#'>
+                  <h3
+                    onClick={() => {
+                      getFilterName('MyBlog');
+                      setDisplayUser(false);
+                    }}
+                  >
+                    MyBlog
+                  </h3>
                 </Link>
 
-                <Link className={homeCss.linkItem} to='/userdetails'>
-                  <h3>Welcome-{props.userData.username}</h3>
+                <Link className={homeCss.linkItem} to='#'>
+                  <h3 onClick={() => setDisplayUser((old) => !old)}>
+                    Welcome-{props.userData.username}
+                  </h3>
                 </Link>
                 <Link className={homeCss.linkItem} to='/logout'>
                   <h3>LogOut</h3>
@@ -68,18 +84,22 @@ const HomePage = (props) => {
           <ShareForm user={props.userData} setFacts={props.setFacts} />
         )}
       </div>
-      <main>
-        <div className={homeCss.catDiv}>
-          {displayBlogs && <LeDeco getFilterName={getFilterName} />}
-        </div>
-        {displayBlogs && (
-          <Blogs
-            facts={newArr}
-            setFacts={props.setFacts}
-            userData={props.userData}
-          />
-        )}
-      </main>
+      {DisplayUser ? (
+        <UserProfile user={props.userData} />
+      ) : (
+        <main>
+          <div className={homeCss.catDiv}>
+            {displayBlogs && <LeDeco getFilterName={getFilterName} />}
+          </div>
+          {displayBlogs && (
+            <Blogs
+              facts={newArr}
+              setFacts={props.setFacts}
+              userData={props.userData}
+            />
+          )}
+        </main>
+      )}
       <Outlet />
     </div>
   );
