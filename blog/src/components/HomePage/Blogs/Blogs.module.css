@@ -34,6 +34,15 @@
   gap: 10px;
   justify-content: space-between;
 }
+.secondDiv2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-left: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 .caTegory {
   width: fit-content;
   height: fit-content;
@@ -46,4 +55,8 @@
 .txt a {
   text-decoration: none;
   color: black;
+}
+.editDeleteBtn {
+  display: flex;
+  flex-direction: column;
 }

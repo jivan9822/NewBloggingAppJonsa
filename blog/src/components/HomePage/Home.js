@@ -7,6 +7,7 @@ import ShareForm from './ShareBlog/ShareBlog';
 
 const HomePage = (props) => {
   const [addBlog, setAddBlog] = useState(false);
+  const [name, setName] = useState('AddBlog');
   const [displayBlogs, setDisplayBlogs] = useState(true);
 
   return (
@@ -25,10 +26,13 @@ const HomePage = (props) => {
             {props.userData ? (
               <div className={homeCss.navBar}>
                 <h3
-                  onClick={() => setAddBlog(!addBlog)}
+                  onClick={() => {
+                    setAddBlog(!addBlog);
+                    setName((old) => (old === 'Cancel' ? 'AddBlog' : 'Cancel'));
+                  }}
                   className={homeCss.AddBlogBtn}
                 >
-                  AddBlog
+                  {name}
                 </h3>
                 <Link className={homeCss.linkItem} to='/myblog'>
                   <h3>MyBlog</h3>
