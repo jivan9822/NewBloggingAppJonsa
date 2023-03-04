@@ -3,12 +3,15 @@ const bcrypt = require('bcrypt');
 const actionSchema = mongoose.Schema({
   like: {
     type: [mongoose.Types.ObjectId],
+    default: [],
   },
   mindBlowing: {
     type: [mongoose.Types.ObjectId],
+    default: [],
   },
   disLike: {
     type: [mongoose.Types.ObjectId],
+    default: [],
   },
 });
 const userSchema = mongoose.Schema({
@@ -37,6 +40,12 @@ const userSchema = mongoose.Schema({
   },
   action: {
     type: actionSchema,
+    required: true,
+    default: {
+      like: [],
+      mindBlowing: [],
+      disLike: [],
+    },
   },
 });
 

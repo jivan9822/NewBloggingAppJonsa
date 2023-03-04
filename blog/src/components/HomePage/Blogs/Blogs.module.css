@@ -7,7 +7,6 @@
   height: 800px;
   overflow: auto;
 }
-
 .ulBlogs::-webkit-scrollbar {
   display: none;
 }
@@ -68,9 +67,4 @@
 .editDeleteBtn {
   display: flex;
   flex-direction: column;
-}
-.reply {
-  background-color: transparent;
-  color: white;
-  cursor: pointer;
 }

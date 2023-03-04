@@ -74,8 +74,20 @@ exports.deleteBlog = CatchAsync(async (req, res, next) => {
 });
 
 exports.recordAction = CatchAsync(async (req, res, next) => {
-  console.log(req.body);
-  res.send('Action!');
+  const user = await User.findById(req.user._id);
+  user.action[req.body.field].push(req.body.blogId);
+  await user.save();
+  setUserData(user._id, user);
+  const blog = await Blog.findById(req.body.blogId);
+  blog[req.body.field]++;
+  await blog.save();
+  res.status(200).json({
+    status: true,
+    message: 'user action added success!',
+    data: {
+      user,
+    },
+  });
 });
 
 exports.getAllBlogs = CatchAsync(async (req, res, next) => {

@@ -18,15 +18,15 @@ const blogSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please provide category of blog'],
     },
-    votesInteresting: {
+    like: {
       type: Number,
       default: 0,
     },
-    votesMindblowing: {
+    mindBlowing: {
       type: Number,
       default: 0,
     },
-    votesFalse: {
+    disLike: {
       type: Number,
       default: 0,
     },

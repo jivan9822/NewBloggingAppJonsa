@@ -3,6 +3,7 @@ import blogCss from './Blogs.module.css';
 import { useState } from 'react';
 import EditBlog from '../ShareBlog/EditBlog';
 import DeleteBlog from '../ShareBlog/DeleteBlog';
+import axios from 'axios';
 
 const CATEGORIES = [
   { name: 'technology', color: '#3b82f6' },
@@ -21,7 +22,6 @@ const Blogs = (props) => {
     field: '',
     userId: '',
   });
-  // const [cursor, setCursor] = useState('pointer');
 
   const onChangeHandler = (e) => {
     e.preventDefault();
@@ -31,7 +31,6 @@ const Blogs = (props) => {
 
     const textVal = element.innerText.split(' ');
     textVal[1] = +textVal[1] + 1;
-    // console.log(textVal);
     element.innerText = textVal;
     const { name, value } = e.target;
     getActionData({
@@ -39,13 +38,31 @@ const Blogs = (props) => {
       field: name,
       userId: props.userData._id,
     });
+    axios
+      .post('/action', {
+        blogId: value,
+        field: name,
+        userId: props.userData._id,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  console.log(actionData);
   const id = props.userData ? props.userData._id : null;
   const [editMode, setEditMode] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editFact, setEditFact] = useState(null);
   const fact = props.facts;
+  let dl, l, mb;
+  if (props.userData) {
+    const { disLike, like, mindBlowing } = props.userData.action;
+    dl = disLike;
+    l = like;
+    mb = mindBlowing;
+  }
   return (
     <div>
       {deleteId && (
@@ -84,34 +101,51 @@ const Blogs = (props) => {
                     >
                       {each.category}
                     </span>
-                    {/* <button className={blogCss.reply}>Reply 0</button> */}
                     <div className={blogCss.thumb}>
                       <button
                         name='like'
                         id={`${each._id} like`}
                         value={each._id}
                         onClick={onChangeHandler}
-                        disabled={false}
+                        disabled={l && l.includes(each._id) ? true : false}
+                        style={{
+                          cursor:
+                            l && l.includes(each._id)
+                              ? 'not-allowed'
+                              : 'pointer',
+                        }}
                       >
-                        👍 {each.votesInteresting}
+                        👍 {each.like}
                       </button>
                       <button
                         name='mindBlowing'
                         id={`${each._id} mindBlowing`}
                         value={each._id}
                         onClick={onChangeHandler}
-                        disabled={false}
+                        disabled={mb && mb.includes(each._id) ? true : false}
+                        style={{
+                          cursor:
+                            mb && mb.includes(each._id)
+                              ? 'not-allowed'
+                              : 'pointer',
+                        }}
                       >
-                        🤠 {each.votesMindblowing}
+                        🤠 {each.mindBlowing}
                       </button>
                       <button
                         name='disLike'
                         id={`${each._id} disLike`}
                         value={each._id}
                         onClick={onChangeHandler}
-                        disabled={false}
+                        disabled={dl && dl.includes(each._id) ? true : false}
+                        style={{
+                          cursor:
+                            dl && dl.includes(each._id)
+                              ? 'not-allowed'
+                              : 'pointer',
+                        }}
                       >
-                        ⛔️ {each.votesFalse}
+                        ⛔️ {each.disLike}
                       </button>
                     </div>
                   </div>
