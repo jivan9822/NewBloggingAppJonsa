@@ -5,6 +5,7 @@ const User = require('../Model/userModel');
 const { promisify } = require('util');
 const { getUserData } = require('./redis');
 
+// USER LOGIN HANDLER
 exports.authenticate = CatchAsync(async (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -23,6 +24,7 @@ exports.authenticate = CatchAsync(async (req, res, next) => {
   next();
 });
 
+// USER AUTHORIZATION HANDLED BY CACHE TO AVOID MULTIPLE DB CALLS
 exports.protect = CatchAsync(async (req, res, next) => {
   const token = req.cookies.jwt;
   if (!token) {
@@ -34,7 +36,10 @@ exports.protect = CatchAsync(async (req, res, next) => {
     );
   }
   const decode = await promisify(jwt.verify)(token, process.env.SEC_STRING);
-  const user = await getUserData(decode.id); // from redis cache
+
+  // SETTING USER TO CACHE
+  const user = await getUserData(decode.id);
+
   if (!user) {
     res.cookie('jwt', null);
     return next(new AppError('You are not loggedIn! Please Login!', 401));

@@ -30,6 +30,7 @@ const blogSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    // THIS WILL USE IN NEXT UPDATE WHERE EACH BLOG WILL VERIFY AND THE APPROVED TO DISPLAY
     status: {
       type: String,
       enum: ['pending', 'approved', 'rejected'],
@@ -38,11 +39,6 @@ const blogSchema = mongoose.Schema(
   },
   { timestamp: true }
 );
-
-blogSchema.pre(/^find/, function (next) {
-  this.find({ isDeleted: false });
-  next();
-});
 
 const Blog = mongoose.model('Blog', blogSchema);
 module.exports = Blog;

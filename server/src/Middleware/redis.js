@@ -1,7 +1,6 @@
 const redis = require('redis');
-const { CatchAsync } = require('../Error/CatchAsync');
 
-const defaultExpiration = 3000;
+const defaultExpiration = 6000;
 
 const clint = redis.createClient({
   socket: {
@@ -20,7 +19,6 @@ clint
   });
 
 exports.setUserData = (userId, user) => {
-  //   const str = token.substr(0, 10);
   clint.setEx(JSON.stringify(userId), defaultExpiration, JSON.stringify(user));
 };
 

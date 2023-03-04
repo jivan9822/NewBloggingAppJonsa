@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+
+// NESTED SCHEMA TO RECORD USERS VOTES
 const actionSchema = mongoose.Schema({
   like: {
     type: [mongoose.Types.ObjectId],
@@ -14,6 +16,8 @@ const actionSchema = mongoose.Schema({
     default: [],
   },
 });
+
+// MAIN SCHEMA
 const userSchema = mongoose.Schema({
   username: {
     type: String,
@@ -38,6 +42,7 @@ const userSchema = mongoose.Schema({
       'password should be min length is 8 and max length is 15',
     ],
   },
+  // NESTED ACTION SCHEMA
   action: {
     type: actionSchema,
     required: true,
