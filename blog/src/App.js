@@ -8,15 +8,21 @@ import UserLogOut from './components/LogOut/LogOut';
 import axios from 'axios';
 
 const App = () => {
+  // STATE TO GET DATA OF USER FROM LOGIN PAGE
   const [userData, getUserData] = useState(null);
+  // STATE TO GET DATA OF BLOGS/FACTS
   const [facts, setFacts] = useState([]);
 
   useEffect(() => {
+    // VERIFYING USER WHEN SERVER START
     isValidUser(getUserData);
+
+    // FETCHING BLOGS WHEN SERVER STARTS
     axios
       .get('/getblogs')
       .then((res) => {
         const blogs = res.data.data.blogs;
+        // BLOGS SET TO FACTS
         setFacts(blogs.reverse());
       })
       .catch((err) => {
@@ -26,6 +32,7 @@ const App = () => {
 
   return (
     <Routes>
+      {/* HOME ROUTE WHERE SENDING USER-DATA, BLOG-DATA, SET-FACTS TO AVOID MULTIPLE FETCH */}
       <Route
         exact
         path='/'
@@ -33,6 +40,7 @@ const App = () => {
           <HomePage userData={userData} facts={facts} setFacts={setFacts} />
         }
       >
+        {/* FETCHING USER DATA FROM LOGIN PAGE */}
         <Route path='login' element={<LoginPage getUserData={getUserData} />} />
         <Route path='signup' element={<SignupPage />} />
         <Route path='logout' element={<UserLogOut />} />

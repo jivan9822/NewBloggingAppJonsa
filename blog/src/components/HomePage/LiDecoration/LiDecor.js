@@ -1,5 +1,5 @@
 import dec from './Dec.module.css';
-
+// CATEGORIES ARRAY WITH RESPECTIVE COLOR
 const CATEGORIES = [
   { name: 'All', color: 'white' },
   { name: 'technology', color: '#3b82f6' },
@@ -14,6 +14,7 @@ const CATEGORIES = [
 
 const LeDeco = (props) => {
   const onClickHandler = (e) => {
+    // SENDING FILTER NAME TO HOME.JS
     props.getFilterName(e.target.id);
     e.preventDefault();
   };

@@ -22,6 +22,7 @@ const SignupPage = () => {
         [name]: value,
       };
     });
+    // SIGN-UP VALIDATION FOR USER INPUTS
     if (validate(name, value)) {
       document.getElementById(name).style.color = 'green';
       if (

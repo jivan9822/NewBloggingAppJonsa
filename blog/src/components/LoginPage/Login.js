@@ -22,6 +22,7 @@ const LoginPage = (props) => {
         [name]: value,
       };
     });
+    // VALIDATION CHECK FOR USER INPUTS
     if (validate(name, value)) {
       document.getElementById(name).style.color = 'green';
       if (
@@ -89,12 +90,7 @@ const LoginPage = (props) => {
           onChange={onChangeHandler}
         />
       </div>
-      <button
-        disabled={isDisabled}
-        id='btn'
-        // className={loginCss.signBtn}
-        type='submit'
-      >
+      <button disabled={isDisabled} id='btn' type='submit'>
         Login
       </button>
     </form>

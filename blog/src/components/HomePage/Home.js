@@ -7,6 +7,8 @@ import ShareForm from './ShareBlog/ShareBlog';
 import UserProfile from './UserProfile/UserProfile';
 
 const HomePage = (props) => {
+  // PROPS RECEIVING userData, facts, setFacts(fn) FROM APP.JS
+
   const [addBlog, setAddBlog] = useState(false);
   const [DisplayUser, setDisplayUser] = useState(false);
   const [name, setName] = useState('AddBlog');
@@ -14,7 +16,7 @@ const HomePage = (props) => {
   const [filterName, getFilterName] = useState('All');
 
   let newArr;
-
+  // FILTRATION OF BLOGS
   if (filterName === 'All') {
     newArr = props.facts;
   } else if (filterName === 'MyBlog') {
@@ -22,6 +24,7 @@ const HomePage = (props) => {
   } else {
     newArr = props.facts.filter((each) => each.category === filterName);
   }
+
   return (
     <div className={homeCss.topDiv}>
       <div>
@@ -86,13 +89,16 @@ const HomePage = (props) => {
           <ShareForm user={props.userData} setFacts={props.setFacts} />
         )}
       </div>
+      {/* STILL PENDING TO DISPLAY USER PROFILE */}
       {DisplayUser ? (
         <UserProfile user={props.userData} />
       ) : (
         <main>
           <div className={homeCss.catDiv}>
+            {/* LIST ELEMENT FOR FILTRATION OF BLOGS */}
             {displayBlogs && <LeDeco getFilterName={getFilterName} />}
           </div>
+          {/* DISPLAY BLOGS */}
           {displayBlogs && (
             <Blogs
               facts={newArr}

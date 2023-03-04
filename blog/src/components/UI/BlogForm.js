@@ -11,7 +11,7 @@ const CATEGORIES = [
   { name: 'history', color: '#f97316' },
   { name: 'news', color: '#8b5cf6' },
 ];
-
+// BLOG FORM FOR SHARE AND EDIT 
 const InputForm = (props) => {
   const id = props.editFact ? props.editFact._id : null;
   const [text, setText] = useState(props.editFact ? props.editFact.text : '');
