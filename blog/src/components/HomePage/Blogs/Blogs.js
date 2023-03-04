@@ -1,6 +1,6 @@
 import Button from '../../UI/Button';
 import blogCss from './Blogs.module.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import EditBlog from '../ShareBlog/EditBlog';
 import DeleteBlog from '../ShareBlog/DeleteBlog';
 
@@ -16,12 +16,36 @@ const CATEGORIES = [
 ];
 
 const Blogs = (props) => {
+  const [actionData, getActionData] = useState({
+    blogId: '',
+    field: '',
+    userId: '',
+  });
+  // const [cursor, setCursor] = useState('pointer');
+
+  const onChangeHandler = (e) => {
+    e.preventDefault();
+    e.target.disabled = true;
+    const element = document.getElementById(e.target.id);
+    element.style.cursor = 'not-allowed';
+
+    const textVal = element.innerText.split(' ');
+    textVal[1] = +textVal[1] + 1;
+    // console.log(textVal);
+    element.innerText = textVal;
+    const { name, value } = e.target;
+    getActionData({
+      blogId: value,
+      field: name,
+      userId: props.userData._id,
+    });
+  };
+  console.log(actionData);
   const id = props.userData ? props.userData._id : null;
   const [editMode, setEditMode] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editFact, setEditFact] = useState(null);
   const fact = props.facts;
-
   return (
     <div>
       {deleteId && (
@@ -39,7 +63,7 @@ const Blogs = (props) => {
         />
       ) : (
         <ul className={blogCss.ulBlogs}>
-          {fact.map((each) => {
+          {fact.map((each, index) => {
             return (
               <li key={each._id} className={blogCss.blogLi}>
                 <p className={blogCss.txt}>
@@ -60,10 +84,35 @@ const Blogs = (props) => {
                     >
                       {each.category}
                     </span>
+                    {/* <button className={blogCss.reply}>Reply 0</button> */}
                     <div className={blogCss.thumb}>
-                      <button>👍 {each.votesInteresting}</button>
-                      <button>🤠 {each.votesMindblowing}</button>
-                      <button>⛔️ {each.votesFalse}</button>
+                      <button
+                        name='like'
+                        id={`${each._id} like`}
+                        value={each._id}
+                        onClick={onChangeHandler}
+                        disabled={false}
+                      >
+                        👍 {each.votesInteresting}
+                      </button>
+                      <button
+                        name='mindBlowing'
+                        id={`${each._id} mindBlowing`}
+                        value={each._id}
+                        onClick={onChangeHandler}
+                        disabled={false}
+                      >
+                        🤠 {each.votesMindblowing}
+                      </button>
+                      <button
+                        name='disLike'
+                        id={`${each._id} disLike`}
+                        value={each._id}
+                        onClick={onChangeHandler}
+                        disabled={false}
+                      >
+                        ⛔️ {each.votesFalse}
+                      </button>
                     </div>
                   </div>
                   <div className={blogCss.editDeleteBtn}>

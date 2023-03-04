@@ -30,10 +30,6 @@ const blogSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    isDeleted: {
-      type: Boolean,
-      default: false,
-    },
     status: {
       type: String,
       enum: ['pending', 'approved', 'rejected'],

@@ -12,7 +12,10 @@ const HomePage = (props) => {
   const [name, setName] = useState('AddBlog');
   const [displayBlogs, setDisplayBlogs] = useState(true);
   const [filterName, getFilterName] = useState('All');
+  // const [action, getAction] = useState({ index: 0, field: '', count: 0 });
+
   let newArr;
+
   if (filterName === 'All') {
     newArr = props.facts;
   } else if (filterName === 'MyBlog') {
@@ -20,6 +23,14 @@ const HomePage = (props) => {
   } else {
     newArr = props.facts.filter((each) => each.category === filterName);
   }
+  // const getVoteData = (data) => {
+  //   console.log(data);
+  //   const [index, field, count] = data.split(' ');
+  //   getAction({ index, field, count });
+  //   console.log(index, field, +count);
+  //   newArr[index][field] = +count;
+  //   console.log(newArr);
+  // };
   return (
     <div className={homeCss.topDiv}>
       <div>
@@ -96,6 +107,7 @@ const HomePage = (props) => {
               facts={newArr}
               setFacts={props.setFacts}
               userData={props.userData}
+              // getVoteData={getVoteData}
             />
           )}
         </main>

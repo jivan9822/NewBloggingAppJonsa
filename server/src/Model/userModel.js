@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const actionSchema = mongoose.Schema({
+  like: {
+    type: [mongoose.Types.ObjectId],
+  },
+  mindBlowing: {
+    type: [mongoose.Types.ObjectId],
+  },
+  disLike: {
+    type: [mongoose.Types.ObjectId],
+  },
+});
 const userSchema = mongoose.Schema({
   username: {
     type: String,
@@ -24,6 +34,9 @@ const userSchema = mongoose.Schema({
       /^.{5,15}$/,
       'password should be min length is 8 and max length is 15',
     ],
+  },
+  action: {
+    type: actionSchema,
   },
 });
 

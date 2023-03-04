@@ -33,7 +33,7 @@
 .thumb button {
   border-radius: 50%;
   border: none;
-  background-color: #38393c;
+  background-color: #7a7a7d;
   cursor: pointer;
   text-align: center;
   padding: 4px;
@@ -68,4 +68,9 @@
 .editDeleteBtn {
   display: flex;
   flex-direction: column;
+}
+.reply {
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
 }

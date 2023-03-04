@@ -73,6 +73,11 @@ exports.deleteBlog = CatchAsync(async (req, res, next) => {
   });
 });
 
+exports.recordAction = CatchAsync(async (req, res, next) => {
+  console.log(req.body);
+  res.send('Action!');
+});
+
 exports.getAllBlogs = CatchAsync(async (req, res, next) => {
   const blogs = await Blog.find();
   res.status(200).json({

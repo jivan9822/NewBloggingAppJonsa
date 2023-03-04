@@ -10,6 +10,7 @@ router.get('/logout', user.logOutHandler);
 router.post('/addBlog', auth.protect, user.addBlog);
 router.post('/editBlog', auth.protect, user.updateBlog);
 router.post('/deleteBlog', auth.protect, user.deleteBlog);
+router.post('/action', auth.protect, user.recordAction);
 router.get('/getblogs', auth.protect, user.getAllBlogs);
 
 module.exports = router;
