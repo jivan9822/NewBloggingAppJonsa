@@ -69,3 +69,35 @@
   display: flex;
   flex-direction: column;
 }
+.replySubmit {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  transition: 0.5s;
+  border: none;
+}
+.replySubmit:hover {
+  background-color: rgb(41, 41, 41);
+}
+.replySubmitDiv {
+  display: flex;
+}
+
+.replyCancel {
+  border: none;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  transition: 0.5s;
+  border-radius: 20px;
+}
+.replyCancel:hover {
+  background-color: rgb(41, 41, 41);
+}
+.replyDiv {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  grid-column: 1 / -1;
+}

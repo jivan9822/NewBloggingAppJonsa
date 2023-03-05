@@ -2,7 +2,6 @@ import blogCss from './Blogs.module.css';
 import { useState } from 'react';
 import EditBlog from '../ShareBlog/EditBlog';
 import DeleteBlog from '../ShareBlog/DeleteBlog';
-import axios from 'axios';
 import BlogDisplay from './DisplayBlog';
 
 const Blogs = (props) => {

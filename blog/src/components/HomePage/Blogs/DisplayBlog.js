@@ -2,6 +2,8 @@ import blogCss from './Blogs.module.css';
 import Button from '../../UI/Button';
 import { useState } from 'react';
 import axios from 'axios';
+import ReplyPost from './ReplyPost';
+import DisplayReplyList from './DisplayReplyList';
 
 const CATEGORIES = [
   { name: 'technology', color: '#3b82f6' },
@@ -21,8 +23,15 @@ const BlogDisplay = ({
   setEditFact,
   setDeleteId,
 }) => {
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const [showReplyList, setShowReplyList] = useState(false);
   const id = userData ? userData._id : null;
-
+  const handleReplyFormToggle = (e) => {
+    setShowReplyForm(!showReplyForm);
+  };
+  const handleReplyListToggle = (e) => {
+    setShowReplyList(!showReplyList);
+  };
   const [actionData, getActionData] = useState({
     blogId: '',
     field: '',
@@ -91,12 +100,25 @@ const BlogDisplay = ({
             {each.category}
           </span>
           <div className={blogCss.thumb}>
+            <div>
+              <button>
+                <span
+                  id={each._id}
+                  className={blogCss.replyHover}
+                  onClick={handleReplyFormToggle}
+                >
+                  ✍
+                </span>
+                <span id={each._id} onClick={handleReplyListToggle}>
+                  <span>{each.reply.length}</span> 🔽
+                </span>
+              </button>
+            </div>
             <button
               name='like'
               id={`${each._id} like`}
               value={each._id}
               onClick={onChangeHandler}
-              //   style={{ backgroundColor: '#7a7a7d' }}
               style={{
                 backgroundColor:
                   l && l.includes(each._id)
@@ -111,7 +133,6 @@ const BlogDisplay = ({
               id={`${each._id} mindBlowing`}
               value={each._id}
               onClick={onChangeHandler}
-              //   style={{ backgroundColor: '#7a7a7d' }}
               style={{
                 backgroundColor:
                   mb && mb.includes(each._id)
@@ -126,7 +147,6 @@ const BlogDisplay = ({
               id={`${each._id} disLike`}
               value={each._id}
               onClick={onChangeHandler}
-              //   style={{ backgroundColor: '#7a7a7d' }}
               style={{
                 backgroundColor:
                   dl && dl.includes(each._id)
@@ -159,6 +179,17 @@ const BlogDisplay = ({
           )}
         </div>
       </div>
+      <ReplyPost
+        setShowReplyForm={setShowReplyForm}
+        showReplyForm={showReplyForm}
+        handleReplyFormToggle={handleReplyFormToggle}
+        blogId={each._id}
+      />
+      <DisplayReplyList
+        showReplyList={showReplyList}
+        blogId={each._id}
+        replies={each.reply}
+      />
     </li>
   );
 };
