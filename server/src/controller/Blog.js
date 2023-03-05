@@ -49,19 +49,25 @@ exports.deleteBlog = CatchAsync(async (req, res, next) => {
 
 // THIS ROUTE HANDLE THE USERS VOTE TO BLOG
 exports.recordAction = CatchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user._id);
+  const { blogId, field, userId, action } = req.body;
 
-  // PUSH ACTION TO THE PARTICULAR BLOG VOTES
-  user.action[req.body.field].push(req.body.blogId);
+  const user = await User.findById(userId);
+  const blog = await Blog.findById(blogId);
+  if (action) {
+    user.action[field].push(blogId);
+    blog[field]++;
+  } else {
+    const index = user.action[field].indexOf(blogId);
+    if (index > -1) user.action[field].splice(index, 1);
+    blog[field]--;
+  }
+
   await user.save();
+  await blog.save();
 
   // UPDATE CACHE DATA
   setUserData(user._id, user);
 
-  const blog = await Blog.findById(req.body.blogId);
-  // UPDATE VOTE COUNT IN BLOG DATABASE
-  blog[req.body.field]++;
-  await blog.save();
   res.status(200).json({
     status: true,
     message: 'user action added success!',

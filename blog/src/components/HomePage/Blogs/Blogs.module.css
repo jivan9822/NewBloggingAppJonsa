@@ -32,7 +32,8 @@
 .thumb button {
   border-radius: 50%;
   border: none;
-  background-color: #7a7a7d;
+  /* vote background-color */
+  /* background-color: rgb(77, 77, 77); */
   cursor: pointer;
   text-align: center;
   padding: 4px;
