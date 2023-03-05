@@ -11,7 +11,7 @@ const CATEGORIES = [
   { name: 'history', color: '#f97316' },
   { name: 'news', color: '#8b5cf6' },
 ];
-// BLOG FORM FOR SHARE AND EDIT 
+// BLOG FORM FOR SHARE AND EDIT
 const InputForm = (props) => {
   const id = props.editFact ? props.editFact._id : null;
   const [text, setText] = useState(props.editFact ? props.editFact.text : '');
@@ -40,11 +40,11 @@ const InputForm = (props) => {
     <form className={classes.factForm} onSubmit={handleSubmit}>
       <textarea
         type='text'
-        placeholder='Share a fact with the world...'
+        placeholder='Share a fact with the world... min 50 max 300'
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <span>{200 - textLength}</span>
+      <span>{300 - textLength}</span>
       <input
         value={source}
         type='text'
@@ -59,7 +59,11 @@ const InputForm = (props) => {
           </option>
         ))}
       </select>
-      <button className={classes.btn}>
+      <button
+        className={
+          textLength > 300 || textLength < 50 ? classes.hide : classes.btn
+        }
+      >
         {props.editFact ? 'Update' : 'post'}
       </button>
       {props.editFact && (

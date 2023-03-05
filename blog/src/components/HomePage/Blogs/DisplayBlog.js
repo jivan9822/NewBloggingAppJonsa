@@ -110,7 +110,7 @@ const BlogDisplay = ({
                   ✍
                 </span>
                 <span id={each._id} onClick={handleReplyListToggle}>
-                  <span>{each.reply.length}</span> 🔽
+                  <span>{each.reply ? each.reply.length : 0}</span> 🔽
                 </span>
               </button>
             </div>

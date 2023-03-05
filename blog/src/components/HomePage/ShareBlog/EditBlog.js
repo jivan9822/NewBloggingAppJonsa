@@ -8,7 +8,6 @@ const UpdateBlog = (props) => {
       .then((res) => {
         console.log(res);
         const newBlog = res.data.data.blog;
-        console.log(newBlog);
         props.setFacts((old) => [
           ...old.filter((each) => {
             return each._id !== newBlog._id;

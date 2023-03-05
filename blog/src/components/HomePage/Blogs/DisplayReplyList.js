@@ -13,7 +13,6 @@ const DisplayReplyList = ({ showReplyList, replies }) => {
     '#16a34a',
     '#ef4444',
   ];
-  console.log(replies);
   return (
     <>
       {showReplyList && (
