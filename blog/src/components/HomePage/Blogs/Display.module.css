@@ -34,3 +34,26 @@
   justify-content: center;
   align-items: center;
 }
+.ptagSub {
+  background-color: rgb(255, 0, 0);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.replyIcon {
+  background-color: black;
+  color: rgb(255, 0, 0);
+  padding: 3px;
+  border-radius: 15px;
+}
+.namePDiv {
+  display: flex;
+  gap: 5px;
+}
+.replyText {
+  border: 1px solid black;
+  padding: 3px;
+}

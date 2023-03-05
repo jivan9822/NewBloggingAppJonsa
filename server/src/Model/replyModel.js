@@ -19,7 +19,7 @@ const replySchema = mongoose.Schema(
       required: true,
     },
     nestReply: {
-      type: [String],
+      type: [Object],
       default: [],
     },
   },

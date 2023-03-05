@@ -184,6 +184,8 @@ const BlogDisplay = ({
         showReplyForm={showReplyForm}
         handleReplyFormToggle={handleReplyFormToggle}
         blogId={each._id}
+        replies={each.reply}
+        userName={userData.username}
       />
       <DisplayReplyList
         showReplyList={showReplyList}

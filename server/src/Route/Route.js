@@ -19,4 +19,5 @@ router.get('/getblogs', auth.protect, blog.getAllBlogs);
 
 // BLOG REPLY ROUTE
 router.post('/addReply', auth.protect, reply.addReply);
+router.post('/addSubReply', auth.protect, reply.addSubReply);
 module.exports = router;

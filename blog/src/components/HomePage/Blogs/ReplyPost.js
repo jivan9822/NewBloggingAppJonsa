@@ -7,6 +7,8 @@ const ReplyPost = ({
   showReplyForm,
   handleReplyFormToggle,
   blogId,
+  replies,
+  userName,
 }) => {
   const [reply, setReply] = useState('');
   const handleReplyChange = (event) => {
@@ -14,6 +16,7 @@ const ReplyPost = ({
   };
 
   const handleReplySubmit = (event) => {
+    replies.push({ _id: Math.random().toString(), userName, reply, blogId });
     event.preventDefault();
     axios
       .post('/addReply', { reply, blogId })
