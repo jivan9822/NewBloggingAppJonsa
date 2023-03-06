@@ -6,6 +6,7 @@ import ReplyPost from './ReplyPost';
 import DisplayReplyList from './DisplayReplyList';
 import Button2 from '../../UI/Button2';
 import Button3 from '../../UI/Button3';
+import AxiosRequest from './../../UI/AxiosRequest';
 
 const CATEGORIES = [
   { name: 'technology', color: '#3b82f6' },
@@ -69,23 +70,12 @@ const BlogDisplay = ({
       field: name,
       userId: userData._id,
     });
-    axios
-      .post('/action', {
-        blogId: value,
-        field: name,
-        userId: userData._id,
-        action,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response.status === 401) {
-          alert('Session timeout! Please login again!');
-          window.location.reload();
-        }
-      });
+    AxiosRequest('/action', {
+      blogId: value,
+      field: name,
+      userId: userData._id,
+      action,
+    });
   };
   return (
     <li className={blogCss.blogLi}>

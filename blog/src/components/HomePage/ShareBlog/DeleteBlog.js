@@ -1,19 +1,13 @@
 import axios from 'axios';
+import AxiosRequest from '../../UI/AxiosRequest';
+import { useEffect } from 'react';
 
 const DeleteBlog = (props) => {
-  axios
-    .post('/deleteBlog', { id: props.id })
-    .then((res) => {
-      props.setDeleteId(null);
-      props.setFacts((old) => old.filter((each) => each._id !== props.id));
-    })
-    .catch((err) => {
-      console.log(err);
-      if (err.response.status === 401) {
-        alert('Session timeout! Please login again!');
-        window.location.reload();
-      }
-    });
+  AxiosRequest('/deleteBlog', { id: props.id });
+  useEffect(() => {
+    props.setDeleteId(null);
+    props.setFacts((old) => old.filter((each) => each._id !== props.id));
+  }, []);
 };
 
 export default DeleteBlog;

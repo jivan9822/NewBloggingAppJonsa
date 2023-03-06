@@ -31,6 +31,10 @@ const InputForm = (props) => {
     setText('');
     setSource('');
     setCategory('');
+    if (!props.editFact) {
+      props.setAddBlog(false);
+      props.setName('AddBlog');
+    }
   };
   const onCancelHandler = (e) => {
     e.preventDefault();

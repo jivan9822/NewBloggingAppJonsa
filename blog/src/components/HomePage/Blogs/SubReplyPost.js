@@ -1,6 +1,7 @@
 import blogCss from './Blogs.module.css';
 import { useState } from 'react';
 import axios from 'axios';
+import AxiosRequest from '../../UI/AxiosRequest';
 
 const SubReplyPost = (props) => {
   //   console.log(props.id);
@@ -11,18 +12,7 @@ const SubReplyPost = (props) => {
   const handleReplySubmit = (e) => {
     // console.log(reply);
     props.getReply({ id: props.id, reply, userName: props.user });
-    axios
-      .post('/addSubReply', { id: props.id, reply })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response.status === 401) {
-          alert('Session timeout! Please login again!');
-          window.location.reload();
-        }
-      });
+    AxiosRequest('/addSubReply', { id: props.id, reply });
     setReply('');
     props.onToggleFormHandler();
   };

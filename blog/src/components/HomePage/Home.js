@@ -86,7 +86,12 @@ const HomePage = (props) => {
           </div>
         </div>
         {addBlog && (
-          <ShareForm user={props.userData} setFacts={props.setFacts} />
+          <ShareForm
+            user={props.userData}
+            setFacts={props.setFacts}
+            setAddBlog={setAddBlog}
+            setName={setName}
+          />
         )}
       </div>
       {/* STILL PENDING TO DISPLAY USER PROFILE */}

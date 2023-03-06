@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import blogCss from './Blogs.module.css';
 import axios from 'axios';
+import AxiosRequest from '../../UI/AxiosRequest';
 
 const ReplyPost = ({
   setShowReplyForm,
@@ -18,18 +19,7 @@ const ReplyPost = ({
   const handleReplySubmit = (event) => {
     replies.push({ _id: Math.random().toString(), userName, reply, blogId });
     event.preventDefault();
-    axios
-      .post('/addReply', { reply, blogId })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response.status === 401) {
-          alert('Session timeout! Please login again!');
-          window.location.reload();
-        }
-      });
+    AxiosRequest('/addReply', { reply, blogId });
     setReply('');
     setShowReplyForm(false);
   };

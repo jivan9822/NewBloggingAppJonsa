@@ -15,7 +15,13 @@ const ShareForm = (props) => {
         window.location.reload();
       });
   };
-  return <InputForm getData={getData} />;
+  return (
+    <InputForm
+      getData={getData}
+      setAddBlog={props.setAddBlog}
+      setName={props.setName}
+    />
+  );
 };
 
 export default ShareForm;
