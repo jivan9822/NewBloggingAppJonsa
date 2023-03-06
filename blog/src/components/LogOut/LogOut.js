@@ -11,6 +11,10 @@ const UserLogOut = (props) => {
     })
     .catch((err) => {
       console.log(err);
+      if (err.response.status === 401) {
+        alert('Session timeout! Please login again!');
+        window.location.reload();
+      }
     });
 };
 export default UserLogOut;

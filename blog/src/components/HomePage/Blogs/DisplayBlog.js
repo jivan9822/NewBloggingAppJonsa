@@ -4,6 +4,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import ReplyPost from './ReplyPost';
 import DisplayReplyList from './DisplayReplyList';
+import Button2 from '../../UI/Button2';
+import Button3 from '../../UI/Button3';
 
 const CATEGORIES = [
   { name: 'technology', color: '#3b82f6' },
@@ -15,6 +17,8 @@ const CATEGORIES = [
   { name: 'history', color: '#f97316' },
   { name: 'news', color: '#8b5cf6' },
 ];
+let x = 'rgb(77, 77, 77)';
+let y = 'rgb(122, 122, 125)';
 
 const BlogDisplay = ({
   each,
@@ -49,14 +53,14 @@ const BlogDisplay = ({
     const element = document.getElementById(e.target.id);
     let action = false;
     const textVal = element.innerText.split(' ');
-    if (element.style.backgroundColor === 'rgb(122, 122, 125)') {
+    if (element.style.backgroundColor === y) {
       action = true;
       textVal[1] = +textVal[1] + 1;
-      element.style.backgroundColor = 'rgb(77, 77, 77)';
+      element.style.backgroundColor = x;
     } else {
       action = false;
       textVal[1] = +textVal[1] - 1;
-      element.style.backgroundColor = 'rgb(122, 122, 125)';
+      element.style.backgroundColor = y;
     }
     element.innerText = textVal.join(' ');
     const { name, value } = e.target;
@@ -77,6 +81,10 @@ const BlogDisplay = ({
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 401) {
+          alert('Session timeout! Please login again!');
+          window.location.reload();
+        }
       });
   };
   return (
@@ -101,61 +109,45 @@ const BlogDisplay = ({
           </span>
           <div className={blogCss.thumb}>
             <div>
-              <button>
-                <span
-                  id={each._id}
-                  className={blogCss.replyHover}
-                  onClick={handleReplyFormToggle}
-                >
-                  ✍
-                </span>
-                <span id={each._id} onClick={handleReplyListToggle}>
-                  <span>{each.reply ? each.reply.length : 0}</span> 🔽
-                </span>
-              </button>
+              <Button2
+                id={each._id}
+                className={blogCss.replyHover}
+                onClick1={handleReplyFormToggle}
+                onClick2={handleReplyListToggle}
+                span1name={`✍`}
+                span2name={`🔽 ${each.reply ? each.reply.length : 0}`}
+              />
             </div>
-            <button
+            <Button3
               name='like'
               id={`${each._id} like`}
               value={each._id}
               onClick={onChangeHandler}
               style={{
-                backgroundColor:
-                  l && l.includes(each._id)
-                    ? 'rgb(77, 77, 77)'
-                    : 'rgb(122, 122, 125)',
+                backgroundColor: l && l.includes(each._id) ? x : y,
               }}
-            >
-              👍 {each.like}
-            </button>
-            <button
+              heading={`👍 ${each.like}`}
+            />
+            <Button3
               name='mindBlowing'
               id={`${each._id} mindBlowing`}
               value={each._id}
               onClick={onChangeHandler}
               style={{
-                backgroundColor:
-                  mb && mb.includes(each._id)
-                    ? 'rgb(77, 77, 77)'
-                    : 'rgb(122, 122, 125)',
+                backgroundColor: mb && mb.includes(each._id) ? x : y,
               }}
-            >
-              🤠 {each.mindBlowing}
-            </button>
-            <button
+              heading={`🤠 ${each.mindBlowing}`}
+            />
+            <Button3
               name='disLike'
               id={`${each._id} disLike`}
               value={each._id}
               onClick={onChangeHandler}
               style={{
-                backgroundColor:
-                  dl && dl.includes(each._id)
-                    ? 'rgb(77, 77, 77)'
-                    : 'rgb(122, 122, 125)',
+                backgroundColor: dl && dl.includes(each._id) ? x : y,
               }}
-            >
-              ⛔️ {each.disLike}
-            </button>
+              heading={`⛔️ ${each.disLike}`}
+            />
           </div>
         </div>
         <div className={blogCss.editDeleteBtn}>

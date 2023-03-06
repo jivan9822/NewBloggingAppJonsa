@@ -1,7 +1,5 @@
 import classes from './Display.module.css';
 import SubReplyList from './SubReplyList';
-import SubReplyPost from './SubReplyPost';
-import { useState } from 'react';
 
 const DisplayReplyList = ({ showReplyList, replies }) => {
   const CATEGORIES = [
@@ -16,7 +14,6 @@ const DisplayReplyList = ({ showReplyList, replies }) => {
     '#16a34a',
     '#ef4444',
   ];
-  // console.log(replies);
   return (
     <>
       {showReplyList && (

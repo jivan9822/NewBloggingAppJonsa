@@ -2,3 +2,10 @@
   background-color: transparent;
   cursor: pointer;
 }
+.btn2 {
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 4px;
+}
