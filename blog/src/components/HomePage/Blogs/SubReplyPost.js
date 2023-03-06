@@ -22,7 +22,6 @@ const SubReplyPost = (props) => {
     props.getReply({ id: props.id, reply, userName: props.user });
     AxiosRequest('/addSubReply', { id: props.id, reply });
     setReply('');
-    props.onToggleFormHandler();
   };
   return (
     <>

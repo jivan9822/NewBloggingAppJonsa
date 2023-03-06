@@ -20,4 +20,6 @@ router.get('/getblogs', auth.protect, blog.getAllBlogs);
 // BLOG REPLY ROUTE
 router.post('/addReply', auth.protect, reply.addReply);
 router.post('/addSubReply', auth.protect, reply.addSubReply);
+router.post('/editMainReply', auth.protect, reply.editMainReply);
+router.post('/deleteMainReply', auth.protect, reply.deleteMainReply);
 module.exports = router;

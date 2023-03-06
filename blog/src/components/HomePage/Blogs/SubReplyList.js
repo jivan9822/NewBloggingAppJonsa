@@ -2,8 +2,27 @@ import classes from './Display.module.css';
 import SubReplyPost from './SubReplyPost';
 import { useState } from 'react';
 import ShowSubReplyList from './ShowSubReplyList';
+import EditForm from '../../UI/EditForm';
 
 const SubReplyList = ({ each, color, user }) => {
+  // //
+  // const [content, setContent] = useState('Click to edit');
+  // const [isEditing, setIsEditing] = useState(false);
+
+  // const handleEditClick = () => {
+  //   setIsEditing(true);
+  // };
+
+  // const handleContentChange = (e) => {
+  //   setContent(e.target.value);
+  // };
+
+  // const handleContentSubmit = (e) => {
+  //   e.preventDefault();
+  //   setIsEditing(false);
+  // };
+  // //
+
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [showReplyList, setShowReplyList] = useState(false);
   const onToggleFormHandler = (e) => {
@@ -25,7 +44,7 @@ const SubReplyList = ({ each, color, user }) => {
           <p style={{ color: 'orangered' }}>{each.userName}</p>
         </div>
         <div className={classes.headName}>
-          <p className={classes.replyText}>{each.reply}</p>
+          <EditForm text={each.reply} id={each._id} />
         </div>
         <button className={classes.btn}>
           <span id={each._id}>
@@ -50,6 +69,7 @@ const SubReplyList = ({ each, color, user }) => {
       {showReplyList && (
         <ShowSubReplyList
           subReplyList={each.nestReply ?? []}
+          id={each._id}
           color={color}
           user={each.userName}
         />

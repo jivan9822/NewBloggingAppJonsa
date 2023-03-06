@@ -25,9 +25,17 @@ const ReplyPost = ({
     }
   }
   const handleReplySubmit = (event) => {
-    replies.push({ _id: Math.random().toString(), userName, reply, blogId });
     event.preventDefault();
-    AxiosRequest('/addReply', { reply, blogId });
+    // AxiosRequest('/addReply', { reply, blogId });
+    axios
+      .post('/addReply', { reply, blogId })
+      .then((res) => {
+        const data = res.data.data.reply;
+        replies.push(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setReply('');
     setShowReplyForm(false);
   };

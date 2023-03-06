@@ -2,11 +2,18 @@ const redis = require('redis');
 
 const defaultExpiration = 6000;
 
+// const client = redis.createClient({
+//   password: process.env.redisKey,
+//   socket: {
+//     host: process.env.redisHost,
+//     port: process.env.redisPort,
+//   },
+// });
+
 const client = redis.createClient({
-  password: process.env.redisKey,
   socket: {
-    host: process.env.redisHost,
-    port: process.env.redisPort,
+    host: '127.0.0.1',
+    port: 6379,
   },
 });
 

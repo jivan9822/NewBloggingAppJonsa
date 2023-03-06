@@ -36,6 +36,7 @@ const Blogs = (props) => {
                 setEditMode={setEditMode}
                 setEditFact={setEditFact}
                 setDeleteId={setDeleteId}
+                setFacts={props.setFacts}
               />
             );
           })}

@@ -1,7 +1,7 @@
 import classes from './Display.module.css';
 import SubReplyList from './SubReplyList';
 
-const DisplayReplyList = ({ showReplyList, replies, user }) => {
+const DisplayReplyList = ({ showReplyList, replies, user, setFacts }) => {
   const CATEGORIES = [
     '#3b82f6',
     '#16a34a',
@@ -24,6 +24,7 @@ const DisplayReplyList = ({ showReplyList, replies, user }) => {
                 each={each}
                 color={CATEGORIES[index % 8]}
                 user={user}
+                setFacts={setFacts}
               />
             </div>
           ))}
