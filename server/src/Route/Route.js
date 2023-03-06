@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const user = require('../controller/User');
 const blog = require('../controller/Blog');
-const reply = require('../controller/reply');
+const reply = require('../controller/Reply');
 const auth = require('../Middleware/authorization');
 
 // USER ROUTES
