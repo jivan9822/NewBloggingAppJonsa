@@ -2,19 +2,21 @@ const redis = require('redis');
 
 const defaultExpiration = 6000;
 
-const clint = redis.createClient({
+const client = redis.createClient({
+  password: process.env.redisKey,
   socket: {
-    port: 6379,
-    host: '127.0.0.1',
+    host: process.env.redisHost,
+    port: process.env.redisPort,
   },
 });
 
-clint
+client
   .connect()
   .then(() => {
     console.log('Connected to Redis database!');
   })
   .catch((err) => {
+    console.log(err);
     console.log('Error Connection Redis!!');
   });
 
