@@ -25,6 +25,6 @@ exports.setUserData = (userId, user) => {
 };
 
 exports.getUserData = async (token) => {
-  const user = await clint.get(JSON.stringify(token));
+  const user = await client.get(JSON.stringify(token));
   return JSON.parse(user);
 };
