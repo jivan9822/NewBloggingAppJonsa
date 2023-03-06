@@ -30,15 +30,15 @@ const HomePage = (props) => {
       <div>
         <div className={homeCss.mainDivHome}>
           <Link className={homeCss.headLink} to='/'>
-            <h3
+            <h1
               className={homeCss.h3Head}
               onClick={() => {
                 setDisplayBlogs(true);
                 setDisplayUser(false);
               }}
             >
-              Welcome to the Blogging App
-            </h3>
+              Blogging App
+            </h1>
           </Link>
           <div className={homeCss.navDiv}>
             {props.userData ? (

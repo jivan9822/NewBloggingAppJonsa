@@ -3,7 +3,7 @@ import SubReplyPost from './SubReplyPost';
 import { useState } from 'react';
 import ShowSubReplyList from './ShowSubReplyList';
 
-const SubReplyList = ({ each, color }) => {
+const SubReplyList = ({ each, color, user }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [showReplyList, setShowReplyList] = useState(false);
   const onToggleFormHandler = (e) => {
@@ -43,12 +43,16 @@ const SubReplyList = ({ each, color }) => {
         <SubReplyPost
           onToggleFormHandler={onToggleFormHandler}
           id={each._id}
-          user={each.userName}
+          user={user}
           getReply={getReply}
         />
       )}
       {showReplyList && (
-        <ShowSubReplyList subReplyList={each.nestReply ?? []} color={color} />
+        <ShowSubReplyList
+          subReplyList={each.nestReply ?? []}
+          color={color}
+          user={each.userName}
+        />
       )}
     </div>
   );

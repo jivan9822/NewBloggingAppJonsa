@@ -1,7 +1,7 @@
 import classes from './Display.module.css';
 import SubReplyList from './SubReplyList';
 
-const DisplayReplyList = ({ showReplyList, replies }) => {
+const DisplayReplyList = ({ showReplyList, replies, user }) => {
   const CATEGORIES = [
     '#3b82f6',
     '#16a34a',
@@ -20,7 +20,11 @@ const DisplayReplyList = ({ showReplyList, replies }) => {
         <div className={classes.ulReply}>
           {replies.reverse().map((each, index) => (
             <div key={index}>
-              <SubReplyList each={each} color={CATEGORIES[index % 8]} />
+              <SubReplyList
+                each={each}
+                color={CATEGORIES[index % 8]}
+                user={user}
+              />
             </div>
           ))}
         </div>

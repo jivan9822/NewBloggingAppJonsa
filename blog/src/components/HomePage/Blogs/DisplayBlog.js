@@ -173,6 +173,7 @@ const BlogDisplay = ({
         showReplyList={showReplyList}
         blogId={each._id}
         replies={each.reply}
+        user={userData.username}
       />
     </li>
   );
