@@ -9,6 +9,14 @@ const SubReplyPost = (props) => {
   const handleReplyChange = (e) => {
     setReply(e.target.value);
   };
+
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      // Check if "Enter" key was pressed
+      event.preventDefault(); // Prevent default form submit behavior
+      handleReplySubmit(event); // Call your submit function
+    }
+  }
   const handleReplySubmit = (e) => {
     // console.log(reply);
     props.getReply({ id: props.id, reply, userName: props.user });
@@ -26,20 +34,22 @@ const SubReplyPost = (props) => {
           placeholder='Enter your reply:'
           value={reply}
           onChange={handleReplyChange}
+          onKeyDown={handleKeyPress}
         />
         <div className={blogCss.replySubmitDiv}>
-          <input
-            type='submit'
-            name='submit'
-            className={blogCss.replySubmit}
+          <button
+            type='button'
+            className={blogCss.replyCancel}
             onClick={handleReplySubmit}
-          />
+          >
+            Reply
+          </button>
           <button
             className={blogCss.replyCancel}
             type='button'
             onClick={() => props.onToggleFormHandler()}
           >
-            Cancel
+            Close
           </button>
         </div>
       </div>

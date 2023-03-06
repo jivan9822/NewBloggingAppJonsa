@@ -1,7 +1,6 @@
 import classes from './Display.module.css';
 
 const ShowSubReplyList = (props) => {
-  console.log(props.subReplyList);
   return (
     <>
       {props.subReplyList.reverse().map((each, ind) => (

@@ -12,10 +12,18 @@ const ReplyPost = ({
   userName,
 }) => {
   const [reply, setReply] = useState('');
+
   const handleReplyChange = (event) => {
     setReply(event.target.value);
   };
 
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      // Check if "Enter" key was pressed
+      event.preventDefault(); // Prevent default form submit behavior
+      handleReplySubmit(event); // Call your submit function
+    }
+  }
   const handleReplySubmit = (event) => {
     replies.push({ _id: Math.random().toString(), userName, reply, blogId });
     event.preventDefault();
@@ -35,20 +43,23 @@ const ReplyPost = ({
             placeholder='Enter your reply:'
             value={reply}
             onChange={handleReplyChange}
+            onKeyDown={handleKeyPress}
           />
           <div className={blogCss.replySubmitDiv}>
-            <input
-              type='submit'
-              name='submit'
+            <button
+              type='button'
+              name='addReply'
               className={blogCss.replySubmit}
               onClick={handleReplySubmit}
-            />
+            >
+              Reply
+            </button>
             <button
               className={blogCss.replyCancel}
               type='button'
               onClick={handleReplyFormToggle}
             >
-              Cancel
+              Close
             </button>
           </div>
         </div>
