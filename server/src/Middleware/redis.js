@@ -21,7 +21,7 @@ client
   });
 
 exports.setUserData = (userId, user) => {
-  clint.setEx(JSON.stringify(userId), defaultExpiration, JSON.stringify(user));
+  client.setEx(JSON.stringify(userId), defaultExpiration, JSON.stringify(user));
 };
 
 exports.getUserData = async (token) => {
