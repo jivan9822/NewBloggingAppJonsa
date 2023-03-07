@@ -2,7 +2,7 @@ import EditForm from '../../UI/EditForm';
 import classes from './Display.module.css';
 
 const ShowSubReplyList = (props) => {
-  console.log(props.id);
+  console.log(props.subReplyList);
   return (
     <>
       {props.subReplyList.map((each, ind) => (
@@ -19,6 +19,8 @@ const ShowSubReplyList = (props) => {
             text={each.reply}
             id={props.id}
             index={ind}
+            userId={props.userId}
+            replyUser={each.userId}
           />
         </div>
       ))}

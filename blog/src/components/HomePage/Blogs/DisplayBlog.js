@@ -1,7 +1,6 @@
 import blogCss from './Blogs.module.css';
 import Button from '../../UI/Button';
 import { useState } from 'react';
-import axios from 'axios';
 import ReplyPost from './ReplyPost';
 import DisplayReplyList from './DisplayReplyList';
 import Button2 from '../../UI/Button2';
@@ -174,7 +173,7 @@ const BlogDisplay = ({
         showReplyList={showReplyList}
         blogId={each._id}
         replies={each.reply}
-        user={userData.username}
+        user={userData}
         setFacts={setFacts}
       />
     </li>

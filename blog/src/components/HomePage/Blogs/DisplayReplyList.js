@@ -24,6 +24,8 @@ const DisplayReplyList = ({ showReplyList, replies, user, setFacts }) => {
                 each={each}
                 color={CATEGORIES[index % 8]}
                 user={user}
+                userId={user._id}
+                replyUser={each.userId}
                 setFacts={setFacts}
               />
             </div>

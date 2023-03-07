@@ -68,18 +68,24 @@ const EditForm = (props) => {
           />
         </div>
       ) : (
-        <div>
-          <span onClick={handleEditClick} style={{ cursor: 'pointer' }}>
-            ✏️{content}
-          </span>
-          <span
-            onClick={handleDeleteClick}
-            id={props.id}
-            style={{ cursor: 'pointer' }}
-          >
-            ❌
-          </span>
-        </div>
+        <>
+          {props.userId === props.replyUser ? (
+            <div>
+              <span onClick={handleEditClick} style={{ cursor: 'pointer' }}>
+                ✏️{content}
+              </span>
+              <span
+                onClick={handleDeleteClick}
+                id={props.id}
+                style={{ cursor: 'pointer' }}
+              >
+                ❌
+              </span>
+            </div>
+          ) : (
+            <div style={{ cursor: 'pointer' }}>{content}</div>
+          )}
+        </>
       )}
     </div>
   );

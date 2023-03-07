@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import blogCss from './Blogs.module.css';
 import axios from 'axios';
-import AxiosRequest from '../../UI/AxiosRequest';
 
 const ReplyPost = ({
   setShowReplyForm,
@@ -12,9 +11,14 @@ const ReplyPost = ({
   userName,
 }) => {
   const [reply, setReply] = useState('');
-
+  const [isSubmit, setIsSubmit] = useState(false);
   const handleReplyChange = (event) => {
     setReply(event.target.value);
+    if (event.target.value.length > 0) {
+      setIsSubmit(true);
+    } else {
+      setIsSubmit(false);
+    }
   };
 
   function handleKeyPress(event) {
@@ -22,6 +26,8 @@ const ReplyPost = ({
       // Check if "Enter" key was pressed
       event.preventDefault(); // Prevent default form submit behavior
       handleReplySubmit(event); // Call your submit function
+    } else if (event.key === 'Escape') {
+      handleReplyFormToggle();
     }
   }
   const handleReplySubmit = (event) => {
@@ -52,23 +58,19 @@ const ReplyPost = ({
             value={reply}
             onChange={handleReplyChange}
             onKeyDown={handleKeyPress}
+            autoFocus
           />
           <div className={blogCss.replySubmitDiv}>
-            <button
-              type='button'
-              name='addReply'
-              className={blogCss.replySubmit}
-              onClick={handleReplySubmit}
-            >
-              Reply
-            </button>
-            <button
-              className={blogCss.replyCancel}
-              type='button'
-              onClick={handleReplyFormToggle}
-            >
-              Close
-            </button>
+            {isSubmit && (
+              <button
+                type='button'
+                name='addReply'
+                className={blogCss.replySubmit}
+                onClick={handleReplySubmit}
+              >
+                Reply
+              </button>
+            )}
           </div>
         </div>
       )}

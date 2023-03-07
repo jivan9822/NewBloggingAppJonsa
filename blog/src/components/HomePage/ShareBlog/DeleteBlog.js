@@ -1,4 +1,3 @@
-import axios from 'axios';
 import AxiosRequest from '../../UI/AxiosRequest';
 import { useEffect } from 'react';
 
