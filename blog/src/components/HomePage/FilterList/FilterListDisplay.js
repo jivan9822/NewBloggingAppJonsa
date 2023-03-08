@@ -1,4 +1,4 @@
-import dec from './Dec.module.css';
+import classes from './FilterList.module.css';
 // CATEGORIES ARRAY WITH RESPECTIVE COLOR
 const CATEGORIES = [
   { name: 'All', color: 'white' },
@@ -12,19 +12,19 @@ const CATEGORIES = [
   { name: 'news', color: '#8b5cf6' },
 ];
 
-const LeDeco = (props) => {
+const FilterListDisplay = (props) => {
   const onClickHandler = (e) => {
     // SENDING FILTER NAME TO HOME.JS
     props.getFilterName(e.target.id);
     e.preventDefault();
   };
   return (
-    <div className={dec.catMainDiv}>
+    <div className={classes.catMainDiv}>
       {CATEGORIES.map((each, ind) => {
         return (
           <p
             key={ind}
-            className={dec.catEle}
+            className={classes.catEle}
             id={each.name}
             onClick={onClickHandler}
             style={{ backgroundColor: each.color }}
@@ -36,4 +36,4 @@ const LeDeco = (props) => {
     </div>
   );
 };
-export default LeDeco;
+export default FilterListDisplay;

@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import homeCss from './Home.module.css';
 import { Link, Outlet } from 'react-router-dom';
-import LeDeco from './LiDecoration/LiDecor';
+import FilterListDisplay from './FilterList/FilterListDisplay';
 import Blogs from './Blogs/Blogs';
 import ShareForm from './ShareBlog/ShareBlog';
 import UserProfile from './UserProfile/UserProfile';
@@ -96,7 +96,9 @@ const HomePage = (props) => {
         <main>
           <div className={homeCss.catDiv}>
             {/* LIST ELEMENT FOR FILTRATION OF BLOGS */}
-            {displayBlogs && <LeDeco getFilterName={getFilterName} />}
+            {displayBlogs && (
+              <FilterListDisplay getFilterName={getFilterName} />
+            )}
           </div>
           {/* DISPLAY BLOGS */}
           {displayBlogs && (
