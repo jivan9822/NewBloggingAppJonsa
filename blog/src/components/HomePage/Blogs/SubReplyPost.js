@@ -28,9 +28,11 @@ const SubReplyPost = (props) => {
   }
   const handleReplySubmit = (e) => {
     // console.log(reply);
-    props.getReply({ id: props.id, reply, userName: props.user.username });
+    // props.getReply({ id: props.id, reply, userName: props.user.username });
     AxiosRequest('/addSubReply', { id: props.id, reply });
+    props.setIsUpdate((old) => !old);
     setReply('');
+    props.setShowReplyList(false);
   };
   return (
     <>

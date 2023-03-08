@@ -8,22 +8,23 @@ const Blogs = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editFact, setEditFact] = useState(null);
+
   const fact = props.facts;
 
   return (
     <div>
       {deleteId && (
         <DeleteBlog
-          setFacts={props.setFacts}
           id={deleteId}
           setDeleteId={setDeleteId}
+          setIsUpdate={props.setIsUpdate}
         />
       )}
       {editMode ? (
         <EditBlog
+          setIsUpdate={props.setIsUpdate}
           setEditMode={setEditMode}
           editFact={editFact}
-          setFacts={props.setFacts}
         />
       ) : (
         <ul className={blogCss.ulBlogs}>
@@ -36,7 +37,7 @@ const Blogs = (props) => {
                 setEditMode={setEditMode}
                 setEditFact={setEditFact}
                 setDeleteId={setDeleteId}
-                setFacts={props.setFacts}
+                setIsUpdate={props.setIsUpdate}
               />
             );
           })}

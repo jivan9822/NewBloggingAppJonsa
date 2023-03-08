@@ -10,13 +10,14 @@ import axios from 'axios';
 const App = () => {
   // STATE TO GET DATA OF USER FROM LOGIN PAGE
   const [userData, getUserData] = useState(null);
+  const [isUpdate, setIsUpdate] = useState(false);
   // STATE TO GET DATA OF BLOGS/FACTS
   const [facts, setFacts] = useState([]);
 
   useEffect(() => {
     // VERIFYING USER WHEN SERVER START
     isValidUser(getUserData);
-
+    console.log('Hello!');
     // FETCHING BLOGS WHEN SERVER STARTS
     axios
       .get('/getblogs')
@@ -28,7 +29,7 @@ const App = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [isUpdate]);
 
   return (
     <Routes>
@@ -37,7 +38,11 @@ const App = () => {
         exact
         path='/'
         element={
-          <HomePage userData={userData} facts={facts} setFacts={setFacts} />
+          <HomePage
+            userData={userData}
+            facts={facts}
+            setIsUpdate={setIsUpdate}
+          />
         }
       >
         {/* FETCHING USER DATA FROM LOGIN PAGE */}

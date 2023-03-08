@@ -88,9 +88,9 @@ const HomePage = (props) => {
         {addBlog && (
           <ShareForm
             user={props.userData}
-            setFacts={props.setFacts}
             setAddBlog={setAddBlog}
             setName={setName}
+            setIsUpdate={props.setIsUpdate}
           />
         )}
       </div>
@@ -109,6 +109,7 @@ const HomePage = (props) => {
               facts={newArr}
               setFacts={props.setFacts}
               userData={props.userData}
+              setIsUpdate={props.setIsUpdate}
             />
           )}
         </main>

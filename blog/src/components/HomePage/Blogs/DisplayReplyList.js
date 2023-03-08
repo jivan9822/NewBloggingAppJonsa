@@ -1,7 +1,13 @@
 import classes from './Display.module.css';
 import SubReplyList from './SubReplyList';
 
-const DisplayReplyList = ({ showReplyList, replies, user, setFacts }) => {
+const DisplayReplyList = ({
+  showReplyList,
+  replies,
+  user,
+  setIsUpdate,
+  setShowReplyList,
+}) => {
   const CATEGORIES = [
     '#3b82f6',
     '#16a34a',
@@ -26,7 +32,7 @@ const DisplayReplyList = ({ showReplyList, replies, user, setFacts }) => {
                 user={user}
                 userId={user._id}
                 replyUser={each.userId}
-                setFacts={setFacts}
+                setIsUpdate={setIsUpdate}
               />
             </div>
           ))}

@@ -26,7 +26,7 @@ const BlogDisplay = ({
   setEditMode,
   setEditFact,
   setDeleteId,
-  setFacts,
+  setIsUpdate,
 }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [showReplyList, setShowReplyList] = useState(false);
@@ -162,19 +162,22 @@ const BlogDisplay = ({
         </div>
       </div>
       <ReplyPost
+        setShowReplyList={setShowReplyList}
         setShowReplyForm={setShowReplyForm}
         showReplyForm={showReplyForm}
         handleReplyFormToggle={handleReplyFormToggle}
         blogId={each._id}
         replies={each.reply}
         userName={userData.username}
+        setIsUpdate={setIsUpdate}
       />
       <DisplayReplyList
         showReplyList={showReplyList}
         blogId={each._id}
         replies={each.reply}
         user={userData}
-        setFacts={setFacts}
+        setIsUpdate={setIsUpdate}
+        setShowReplyList={setShowReplyList}
       />
     </li>
   );

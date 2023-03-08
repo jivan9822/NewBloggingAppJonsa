@@ -4,7 +4,14 @@ import { useState } from 'react';
 import ShowSubReplyList from './ShowSubReplyList';
 import EditForm from '../../UI/EditForm';
 
-const SubReplyList = ({ each, color, user, userId, replyUser }) => {
+const SubReplyList = ({
+  each,
+  color,
+  user,
+  userId,
+  replyUser,
+  setIsUpdate,
+}) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [showReplyList, setShowReplyList] = useState(false);
   const onToggleFormHandler = (e) => {
@@ -33,6 +40,7 @@ const SubReplyList = ({ each, color, user, userId, replyUser }) => {
             user={user}
             userId={userId}
             replyUser={replyUser}
+            setIsUpdate={setIsUpdate}
           />
         </div>
         <button className={classes.btn}>
@@ -53,15 +61,20 @@ const SubReplyList = ({ each, color, user, userId, replyUser }) => {
           id={each._id}
           user={user}
           getReply={getReply}
+          setIsUpdate={setIsUpdate}
+          setShowReplyList={setShowReplyList}
         />
       )}
       {showReplyList && (
         <ShowSubReplyList
+          setShowReplyList={setShowReplyList}
           subReplyList={each.nestReply ?? []}
+          setIsUpdate={setIsUpdate}
           id={each._id}
           color={color}
           user={each.userName}
           userId={userId}
+          onToggleReplyList={onToggleReplyList}
         />
       )}
     </div>

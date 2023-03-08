@@ -7,13 +7,7 @@ const UpdateBlog = (props) => {
       .post('/editBlog', blog)
       .then((res) => {
         console.log(res);
-        const newBlog = res.data.data.blog;
-        props.setFacts((old) => [
-          newBlog,
-          ...old.filter((each) => {
-            return each._id !== newBlog._id;
-          }),
-        ]);
+        props.setIsUpdate((old) => !old);
       })
       .catch((err) => {
         console.log(err);

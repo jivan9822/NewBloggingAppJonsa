@@ -21,6 +21,9 @@ const ShowSubReplyList = (props) => {
             index={ind}
             userId={props.userId}
             replyUser={each.userId}
+            setIsUpdate={props.setIsUpdate}
+            setShowReplyList={props.setShowReplyList}
+            onToggleReplyList={props.onToggleReplyList}
           />
         </div>
       ))}

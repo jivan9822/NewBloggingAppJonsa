@@ -5,7 +5,7 @@ const DeleteBlog = (props) => {
   AxiosRequest('/deleteBlog', { id: props.id });
   useEffect(() => {
     props.setDeleteId(null);
-    props.setFacts((old) => old.filter((each) => each._id !== props.id));
+    props.setIsUpdate((old) => !old);
   }, []);
 };
 

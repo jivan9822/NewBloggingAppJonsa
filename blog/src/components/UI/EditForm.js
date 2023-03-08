@@ -9,12 +9,19 @@ const EditForm = (props) => {
   const handleDeleteClick = (e) => {
     e.preventDefault();
     if (window.confirm('Are u Sure!')) {
-      AxiosRequest('/deleteMainReply', {
-        id: e.target.id,
-        reply: content,
-        index: props.index,
-      });
-      window.location.reload();
+      axios
+        .post('/deleteMainReply', {
+          id: e.target.id,
+          reply: content,
+          index: props.index,
+        })
+        .then((res) => {
+          props.setIsUpdate((old) => !old);
+          props.onToggleReplyList((old) => !old);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
   const handleEditClick = () => {
@@ -34,9 +41,11 @@ const EditForm = (props) => {
         index: props.index,
       })
       .then((res) => {
-        const data = res.data.data.reply;
-        e.target.id = data._id;
-        setContent(data.reply);
+        // const data = res.data.data.reply;
+        // e.target.id = data._id;
+        // setContent(data.reply);
+        props.setIsUpdate((old) => !old);
+        props.setShowReplyList((old) => !old);
       })
       .catch((err) => {
         console.log(err);

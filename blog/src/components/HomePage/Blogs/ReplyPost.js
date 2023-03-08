@@ -7,8 +7,8 @@ const ReplyPost = ({
   showReplyForm,
   handleReplyFormToggle,
   blogId,
-  replies,
-  userName,
+  setShowReplyList,
+  setIsUpdate,
 }) => {
   const [reply, setReply] = useState('');
   const [isSubmit, setIsSubmit] = useState(false);
@@ -36,14 +36,14 @@ const ReplyPost = ({
     axios
       .post('/addReply', { reply, blogId })
       .then((res) => {
-        const data = res.data.data.reply;
-        replies.push(data);
+        setIsUpdate((old) => !old);
       })
       .catch((err) => {
         console.log(err);
       });
     setReply('');
     setShowReplyForm(false);
+    setShowReplyList(false);
   };
 
   return (
