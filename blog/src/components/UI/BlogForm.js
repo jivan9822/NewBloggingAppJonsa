@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import classes from './BlogForm.module.css';
+import Button from './Button';
 
 const CATEGORIES = [
   { name: 'technology', color: '#3b82f6' },
@@ -11,7 +12,7 @@ const CATEGORIES = [
   { name: 'history', color: '#f97316' },
   { name: 'news', color: '#8b5cf6' },
 ];
-// BLOG FORM FOR SHARE AND EDIT 
+// BLOG FORM FOR SHARE AND EDIT
 const InputForm = (props) => {
   const id = props.editFact ? props.editFact._id : null;
   const [text, setText] = useState(props.editFact ? props.editFact.text : '');
@@ -59,13 +60,16 @@ const InputForm = (props) => {
           </option>
         ))}
       </select>
-      <button className={classes.btn}>
-        {props.editFact ? 'Update' : 'post'}
-      </button>
+      <Button
+        className={classes.btn}
+        name={props.editFact ? 'Update' : 'post'}
+      />
       {props.editFact && (
-        <button className={classes.btn} onClick={onCancelHandler}>
-          Cancel
-        </button>
+        <Button
+          className={classes.btn}
+          name='Cancel'
+          onClick={onCancelHandler}
+        />
       )}
     </form>
   );

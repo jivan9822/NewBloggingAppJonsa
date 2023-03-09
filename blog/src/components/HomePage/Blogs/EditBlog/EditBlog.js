@@ -1,15 +1,17 @@
-import InputForm from '../../UI/BlogForm';
+import InputForm from '../../../UI/BlogForm';
 import axios from 'axios';
+import BlogContext from '../../../../context/blog-context';
+import { useContext } from 'react';
 
 const UpdateBlog = (props) => {
+  const Blogs = useContext(BlogContext);
   const getData = (blog) => {
     axios
       .post('/editBlog', blog)
       .then((res) => {
         console.log(res);
         const newBlog = res.data.data.blog;
-        console.log(newBlog);
-        props.setFacts((old) => [
+        Blogs.setFacts((old) => [
           ...old.filter((each) => {
             return each._id !== newBlog._id;
           }),

@@ -1,28 +1,30 @@
-import { React, useState } from 'react';
+import { React, useState, useContext } from 'react';
 import homeCss from './Home.module.css';
 import { Link, Outlet } from 'react-router-dom';
 import FilterListDisplay from './FilterList/FilterListDisplay';
 import Blogs from './Blogs/Blogs';
 import ShareForm from './ShareBlog/ShareBlog';
 import UserProfile from './UserProfile/UserProfile';
+import UserContext from '../../context/user-context';
+import BlogContext from '../../context/blog-context';
+import NavPage from './NavBar';
 
 const HomePage = (props) => {
-  // PROPS RECEIVING userData, facts, setFacts(fn) FROM APP.JS
-
+  // PROPS RECEIVING userblogs.fact, setFacts(fn) FROM APP.JS
+  const blogs = useContext(BlogContext);
+  const userData = useContext(UserContext);
   const [addBlog, setAddBlog] = useState(false);
   const [DisplayUser, setDisplayUser] = useState(false);
-  const [name, setName] = useState('AddBlog');
   const [displayBlogs, setDisplayBlogs] = useState(true);
   const [filterName, getFilterName] = useState('All');
-
   let newArr;
   // FILTRATION OF BLOGS
   if (filterName === 'All') {
-    newArr = props.facts;
+    newArr = blogs.fact;
   } else if (filterName === 'MyBlog') {
-    newArr = props.facts.filter((each) => each.user === props.userData._id);
+    newArr = blogs.fact.filter((each) => each.user === userData.user._id);
   } else {
-    newArr = props.facts.filter((each) => each.category === filterName);
+    newArr = blogs.fact.filter((each) => each.category === filterName);
   }
 
   return (
@@ -40,58 +42,19 @@ const HomePage = (props) => {
               Welcome to the Blogging App
             </h3>
           </Link>
-          <div className={homeCss.navDiv}>
-            {props.userData ? (
-              <div className={homeCss.navBar}>
-                <h3
-                  onClick={() => {
-                    setAddBlog(!addBlog);
-                    setDisplayUser(false);
-                    setName((old) => (old === 'Cancel' ? 'AddBlog' : 'Cancel'));
-                  }}
-                  className={homeCss.AddBlogBtn}
-                >
-                  {name}
-                </h3>
-                <Link className={homeCss.linkItem} to='#'>
-                  <h3
-                    onClick={() => {
-                      getFilterName('MyBlog');
-                      setDisplayUser(false);
-                    }}
-                  >
-                    MyBlog
-                  </h3>
-                </Link>
-
-                <Link className={homeCss.linkItem} to='#'>
-                  <h3 onClick={() => setDisplayUser((old) => !old)}>
-                    Welcome-{props.userData.username}
-                  </h3>
-                </Link>
-                <Link className={homeCss.linkItem} to='/logout'>
-                  <h3>LogOut</h3>
-                </Link>
-              </div>
-            ) : (
-              <div className={homeCss.navBar}>
-                <Link className={homeCss.linkItem} to='/login'>
-                  <h3 onClick={() => setDisplayBlogs(false)}>Login</h3>
-                </Link>
-                <Link className={homeCss.linkItem} to='/signup'>
-                  <h3 onClick={() => setDisplayBlogs(false)}>SignUp</h3>
-                </Link>
-              </div>
-            )}
-          </div>
+          <NavPage
+            user={userData.user}
+            setAddBlog={setAddBlog}
+            addBlog={addBlog}
+            setDisplayUser={setDisplayUser}
+            getFilterName={getFilterName}
+          />
         </div>
-        {addBlog && (
-          <ShareForm user={props.userData} setFacts={props.setFacts} />
-        )}
+        {addBlog && <ShareForm />}
       </div>
       {/* STILL PENDING TO DISPLAY USER PROFILE */}
       {DisplayUser ? (
-        <UserProfile user={props.userData} />
+        <UserProfile user={userData.user} />
       ) : (
         <main>
           <div className={homeCss.catDiv}>
@@ -101,13 +64,7 @@ const HomePage = (props) => {
             )}
           </div>
           {/* DISPLAY BLOGS */}
-          {displayBlogs && (
-            <Blogs
-              facts={newArr}
-              setFacts={props.setFacts}
-              userData={props.userData}
-            />
-          )}
+          {displayBlogs && <Blogs newArr={newArr} />}
         </main>
       )}
       <Outlet />

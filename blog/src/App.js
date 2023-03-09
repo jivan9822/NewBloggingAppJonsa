@@ -6,6 +6,8 @@ import SignupPage from './components/SignUpPage/SignUp';
 import isValidUser from './components/Validation/isValidUser';
 import UserLogOut from './components/LogOut/LogOut';
 import axios from 'axios';
+import BlogContext from './context/blog-context';
+import UserContext from './context/user-context';
 
 const App = () => {
   // STATE TO GET DATA OF USER FROM LOGIN PAGE
@@ -29,23 +31,34 @@ const App = () => {
         console.log(err);
       });
   }, []);
-
+  // console.log(facts);
   return (
-    <Routes>
-      {/* HOME ROUTE WHERE SENDING USER-DATA, BLOG-DATA, SET-FACTS TO AVOID MULTIPLE FETCH */}
-      <Route
-        exact
-        path='/'
-        element={
-          <HomePage userData={userData} facts={facts} setFacts={setFacts} />
-        }
+    <BlogContext.Provider
+      value={{
+        isUpdate: false,
+        fact: facts,
+        setFacts: setFacts,
+      }}
+    >
+      <UserContext.Provider
+        value={{
+          user: userData,
+        }}
       >
-        {/* FETCHING USER DATA FROM LOGIN PAGE */}
-        <Route path='login' element={<LoginPage getUserData={getUserData} />} />
-        <Route path='signup' element={<SignupPage />} />
-        <Route path='logout' element={<UserLogOut />} />
-      </Route>
-    </Routes>
+        <Routes>
+          {/* HOME ROUTE WHERE SENDING USER-DATA, BLOG-DATA, SET-FACTS TO AVOID MULTIPLE FETCH */}
+          <Route exact path='/' element={<HomePage />}>
+            {/* FETCHING USER DATA FROM LOGIN PAGE */}
+            <Route
+              path='login'
+              element={<LoginPage getUserData={getUserData} />}
+            />
+            <Route path='signup' element={<SignupPage />} />
+            <Route path='logout' element={<UserLogOut />} />
+          </Route>
+        </Routes>
+      </UserContext.Provider>
+    </BlogContext.Provider>
   );
 };
 
