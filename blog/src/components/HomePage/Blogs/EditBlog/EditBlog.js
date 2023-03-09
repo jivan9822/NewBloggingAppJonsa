@@ -12,10 +12,10 @@ const UpdateBlog = (props) => {
         console.log(res);
         const newBlog = res.data.data.blog;
         Blogs.setFacts((old) => [
+          newBlog,
           ...old.filter((each) => {
             return each._id !== newBlog._id;
           }),
-          newBlog,
         ]);
       })
       .catch((err) => {

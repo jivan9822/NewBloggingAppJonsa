@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const NavPage = (props) => {
-  const [name, setName] = useState('AddBlog');
-
   return (
     <div className={homeCss.navDiv}>
       {props.user ? (
@@ -13,11 +11,11 @@ const NavPage = (props) => {
             onClick={() => {
               props.setAddBlog((old) => !old);
               props.setDisplayUser(false);
-              setName((old) => (old === 'Cancel' ? 'AddBlog' : 'Cancel'));
+              props.setName((old) => (old === 'Cancel' ? 'AddBlog' : 'Cancel'));
             }}
             className={homeCss.AddBlogBtn}
           >
-            {name}
+            {props.name}
           </h3>
           <Link className={homeCss.linkItem} to='#'>
             <h3

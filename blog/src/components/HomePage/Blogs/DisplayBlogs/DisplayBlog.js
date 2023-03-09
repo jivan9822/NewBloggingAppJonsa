@@ -23,7 +23,8 @@ const BlogDisplay = ({ each, setEditMode, setEditFact, setDeleteId }) => {
       <p className={blogCss.txt}>
         {each.text}
         <a href={each.source} rel='noreferrer' target='_blank'>
-          (Source)
+          <span style={{ color: 'blueviolet' }}>(Source)</span>
+          <span>{each.pubLishedAt.substring(0, 10)}</span>
         </a>
       </p>
       <div className={blogCss.secondDiv}>

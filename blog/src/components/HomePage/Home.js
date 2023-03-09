@@ -3,7 +3,8 @@ import homeCss from './Home.module.css';
 import { Link, Outlet } from 'react-router-dom';
 import FilterListDisplay from './FilterList/FilterListDisplay';
 import Blogs from './Blogs/Blogs';
-import ShareForm from './ShareBlog/ShareBlog';
+// import ShareForm from './ShareBlog/ShareBlog';
+import ShareForm from './Blogs/ShareBlog/ShareBlog';
 import UserProfile from './UserProfile/UserProfile';
 import UserContext from '../../context/user-context';
 import BlogContext from '../../context/blog-context';
@@ -13,6 +14,7 @@ const HomePage = (props) => {
   // PROPS RECEIVING userblogs.fact, setFacts(fn) FROM APP.JS
   const blogs = useContext(BlogContext);
   const userData = useContext(UserContext);
+  const [name, setName] = useState('AddBlog');
   const [addBlog, setAddBlog] = useState(false);
   const [DisplayUser, setDisplayUser] = useState(false);
   const [displayBlogs, setDisplayBlogs] = useState(true);
@@ -43,14 +45,17 @@ const HomePage = (props) => {
             </h3>
           </Link>
           <NavPage
+            name={name}
+            setName={setName}
             user={userData.user}
             setAddBlog={setAddBlog}
             addBlog={addBlog}
             setDisplayUser={setDisplayUser}
             getFilterName={getFilterName}
+            setDisplayBlogs={setDisplayBlogs}
           />
         </div>
-        {addBlog && <ShareForm />}
+        {addBlog && <ShareForm setAddBlog={setAddBlog} setName={setName} />}
       </div>
       {/* STILL PENDING TO DISPLAY USER PROFILE */}
       {DisplayUser ? (

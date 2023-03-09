@@ -1,13 +1,21 @@
 .factForm {
-  display: flex;
+  display: grid;
   width: 800px;
-  /* padding: 10px 30px; */
+  grid-template-columns: 1fr 200px;
+  position: relative;
+  gap: 10px;
   margin: 20px auto;
-  /* margin-right: 20px; */
+  margin-right: 20px;
   border-radius: 30px;
   background-color: #3b404b;
-  gap: 20px;
 }
+
+.count {
+  position: absolute;
+  left: 5%;
+  top: 4%;
+}
+
 .factForm select,
 button {
   height: 40px;
@@ -15,12 +23,15 @@ button {
   border: none;
 }
 .factForm textarea {
+  grid-column: 1 / -1;
   border: none;
   background-color: #7f8082;
   height: 100px;
   overflow: hidden;
 }
-
+.factForm textarea::placeholder {
+  color: rgba(0, 0, 0, 0.267);
+}
 .factForm input {
   background-color: #7f8082;
 }
@@ -30,19 +41,27 @@ button {
 }
 .btn {
   font-family: 'Coiny', sans-serif;
-  /* line-height: 1; */
   text-transform: uppercase;
   font-size: 17px;
   padding-top: 5px;
-  /* background-image: linear-gradient(135deg, #3b82f6, #ef4444, #16a34a, #eab308); */
-  background-color: blue;
+  /* background-color: rgb(62, 0, 60); */
+  /* background-color: #3e003c4a; */
+
   border: none;
   border-radius: 100px;
   cursor: pointer;
   color: white;
-  transition: 0.3s;
+  grid-column: 1 / -1;
 }
 
-.btn:hover {
-  transform: scale(110%) rotate(-2deg);
+.btn2 {
+  font-family: 'Coiny', sans-serif;
+  text-transform: uppercase;
+  font-size: 17px;
+  padding-top: 5px;
+  /* background-color: #3e003c; */
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  color: white;
 }

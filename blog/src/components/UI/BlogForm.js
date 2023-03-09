@@ -15,6 +15,7 @@ const CATEGORIES = [
 // BLOG FORM FOR SHARE AND EDIT
 const InputForm = (props) => {
   const id = props.editFact ? props.editFact._id : null;
+  const [isSubmit, setIsSubmit] = useState(false);
   const [text, setText] = useState(props.editFact ? props.editFact.text : '');
   const [source, setSource] = useState(
     props.editFact ? props.editFact.source : ''
@@ -23,6 +24,30 @@ const InputForm = (props) => {
     props.editFact ? props.editFact.category : ''
   );
   const textLength = text.length;
+
+  const styles = {
+    backgroundColor: isSubmit ? '#3e003c' : '#3e003c4a',
+    cursor: isSubmit ? 'pointer' : 'not-allowed',
+  };
+  const onChangeHandler = (e) => {
+    console.log(e.target.name);
+    e.target.name === 'text' && setText(e.target.value);
+    e.target.name === 'source' && setSource(e.target.value);
+    e.target.name === 'category' && setCategory(e.target.value);
+    if (props.editFact) {
+      setIsSubmit(true);
+    } else {
+      if (
+        text.length > 19 &&
+        source.length > 2 &&
+        e.target.name === 'category'
+      ) {
+        setIsSubmit(true);
+      } else {
+        setIsSubmit(false);
+      }
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     props.editFact
@@ -32,6 +57,10 @@ const InputForm = (props) => {
     setText('');
     setSource('');
     setCategory('');
+    if (!props.editFact) {
+      props.setAddBlog((old) => !old);
+      props.setName((old) => (old === 'Cancel' ? 'AddBlog' : 'Cancel'));
+    }
   };
   const onCancelHandler = (e) => {
     e.preventDefault();
@@ -41,18 +70,21 @@ const InputForm = (props) => {
     <form className={classes.factForm} onSubmit={handleSubmit}>
       <textarea
         type='text'
-        placeholder='Share a fact with the world...'
+        name='text'
+        placeholder='Share a fact with the world...Min Char 20'
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={onChangeHandler}
       />
-      <span>{200 - textLength}</span>
+      <span className={classes.count}>{500 - textLength}</span>
       <input
         value={source}
+        name='source'
         type='text'
         placeholder='Trustworthy source...'
-        onChange={(e) => setSource(e.target.value)}
+        onChange={onChangeHandler}
       />
-      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      {/* <select value={category} onChange={(e) => setCategory(e.target.value)}> */}
+      <select value={category} name='category' onChange={onChangeHandler}>
         <option value=''>Choose category:</option>
         {CATEGORIES.map((cat) => (
           <option key={cat.name} value={cat.name}>
@@ -61,12 +93,14 @@ const InputForm = (props) => {
         ))}
       </select>
       <Button
-        className={classes.btn}
+        className={props.editFact ? classes.btn2 : classes.btn}
+        disable={!isSubmit}
+        style={styles}
         name={props.editFact ? 'Update' : 'post'}
       />
       {props.editFact && (
         <Button
-          className={classes.btn}
+          className={classes.btn2}
           name='Cancel'
           onClick={onCancelHandler}
         />

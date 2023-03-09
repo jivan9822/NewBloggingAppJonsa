@@ -30,6 +30,10 @@ const blogSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    pubLishedAt: {
+      type: Date,
+      default: Date.now(),
+    },
     // THIS WILL USE IN NEXT UPDATE WHERE EACH BLOG WILL VERIFY AND THE APPROVED TO DISPLAY
     status: {
       type: String,
