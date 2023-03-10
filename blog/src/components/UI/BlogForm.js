@@ -16,47 +16,36 @@ const CATEGORIES = [
 const InputForm = (props) => {
   const id = props.editFact ? props.editFact._id : null;
   const [isSubmit, setIsSubmit] = useState(false);
-  const [text, setText] = useState(props.editFact ? props.editFact.text : '');
-  const [source, setSource] = useState(
-    props.editFact ? props.editFact.source : ''
-  );
-  const [category, setCategory] = useState(
-    props.editFact ? props.editFact.category : ''
-  );
-  const textLength = text.length;
+  const [data, setData] = useState({
+    text: props.editFact ? props.editFact.text : '',
+    source: props.editFact ? props.editFact.source : '',
+    category: props.editFact ? props.editFact.category : 'others',
+  });
 
+  const textLength = data.text.length;
   const styles = {
     backgroundColor: isSubmit ? '#3e003c' : '#3e003c4a',
     cursor: isSubmit ? 'pointer' : 'not-allowed',
   };
   const onChangeHandler = (e) => {
-    console.log(e.target.name);
-    e.target.name === 'text' && setText(e.target.value);
-    e.target.name === 'source' && setSource(e.target.value);
-    e.target.name === 'category' && setCategory(e.target.value);
-    if (props.editFact) {
+    const { name, value } = e.target;
+    setData((old) => {
+      return {
+        ...old,
+        [name]: value,
+      };
+    });
+    if (data.text.length > 19) {
       setIsSubmit(true);
     } else {
-      if (
-        text.length > 19 &&
-        source.length > 2 &&
-        e.target.name === 'category'
-      ) {
-        setIsSubmit(true);
-      } else {
-        setIsSubmit(false);
-      }
+      setIsSubmit(false);
     }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.editFact
-      ? props.getData({ text, source, category, id })
-      : props.getData({ text, source, category });
+    props.editFact ? props.getData({ data, id }) : props.getData({ data });
     props.editFact && props.setEditMode(false);
-    setText('');
-    setSource('');
-    setCategory('');
+
     if (!props.editFact) {
       props.setAddBlog((old) => !old);
       props.setName((old) => (old === 'Cancel' ? 'AddBlog' : 'Cancel'));
@@ -72,19 +61,19 @@ const InputForm = (props) => {
         type='text'
         name='text'
         placeholder='Share a fact with the world...Min Char 20'
-        value={text}
+        value={data.text}
         onChange={onChangeHandler}
       />
       <span className={classes.count}>{500 - textLength}</span>
       <input
-        value={source}
+        value={data.source}
         name='source'
         type='text'
         placeholder='Trustworthy source...'
         onChange={onChangeHandler}
       />
       {/* <select value={category} onChange={(e) => setCategory(e.target.value)}> */}
-      <select value={category} name='category' onChange={onChangeHandler}>
+      <select value={data.category} name='category' onChange={onChangeHandler}>
         <option value=''>Choose category:</option>
         {CATEGORIES.map((cat) => (
           <option key={cat.name} value={cat.name}>

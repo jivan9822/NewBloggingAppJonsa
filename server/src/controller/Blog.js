@@ -4,8 +4,11 @@ const Blog = require('../Model/blogModel');
 const User = require('../Model/userModel');
 
 exports.addBlog = CatchAsync(async (req, res, next) => {
-  req.body.user = req.user._id;
-  const blog = await Blog.create(req.body);
+  if (!req.body.data.source.length) {
+    req.body.data.source = '#';
+  }
+  req.body.data.user = req.user._id;
+  const blog = await Blog.create(req.body.data);
   res.status(201).json({
     status: true,
     message: 'Blog added success!',
@@ -27,7 +30,8 @@ exports.getAllBlogs = CatchAsync(async (req, res, next) => {
 });
 
 exports.updateBlog = CatchAsync(async (req, res, next) => {
-  const blog = await Blog.findByIdAndUpdate(req.body.id, req.body, {
+  req.body.data.pubLishedAt = Date.now();
+  const blog = await Blog.findByIdAndUpdate(req.body.id, req.body.data, {
     new: true,
   });
   res.status(200).json({

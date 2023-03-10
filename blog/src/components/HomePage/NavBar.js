@@ -1,5 +1,4 @@
 import homeCss from './Home.module.css';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const NavPage = (props) => {
@@ -12,6 +11,7 @@ const NavPage = (props) => {
               props.setAddBlog((old) => !old);
               props.setDisplayUser(false);
               props.setName((old) => (old === 'Cancel' ? 'AddBlog' : 'Cancel'));
+              props.setEditMode(false);
             }}
             className={homeCss.AddBlogBtn}
           >

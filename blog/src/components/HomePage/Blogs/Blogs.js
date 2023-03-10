@@ -5,15 +5,14 @@ import DeleteBlog from './DeleteBlog/DeleteBlog';
 import BlogDisplay from './DisplayBlogs/DisplayBlog';
 
 const Blogs = (props) => {
-  const [editMode, setEditMode] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editFact, setEditFact] = useState(null);
 
   return (
     <div>
       {deleteId && <DeleteBlog id={deleteId} setDeleteId={setDeleteId} />}
-      {editMode ? (
-        <UpdateBlog setEditMode={setEditMode} editFact={editFact} />
+      {props.editMode ? (
+        <UpdateBlog setEditMode={props.setEditMode} editFact={editFact} />
       ) : (
         <ul className={blogCss.ulBlogs}>
           {props.newArr.map((each, index) => {
@@ -21,9 +20,11 @@ const Blogs = (props) => {
               <BlogDisplay
                 key={each._id}
                 each={each}
-                setEditMode={setEditMode}
+                setEditMode={props.setEditMode}
                 setEditFact={setEditFact}
                 setDeleteId={setDeleteId}
+                setAddBlog={props.setAddBlog}
+                setName={props.setName}
               />
             );
           })}

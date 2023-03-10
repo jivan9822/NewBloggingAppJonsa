@@ -7,7 +7,6 @@ const ShareForm = (props) => {
   const blogs = useContext(BlogContext);
 
   const getData = (blog) => {
-    console.log(blog);
     axios
       .post('/addBlog', blog)
       .then((res) => {

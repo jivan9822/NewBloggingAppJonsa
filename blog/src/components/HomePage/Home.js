@@ -15,6 +15,7 @@ const HomePage = (props) => {
   const blogs = useContext(BlogContext);
   const userData = useContext(UserContext);
   const [name, setName] = useState('AddBlog');
+  const [editMode, setEditMode] = useState(false);
   const [addBlog, setAddBlog] = useState(false);
   const [DisplayUser, setDisplayUser] = useState(false);
   const [displayBlogs, setDisplayBlogs] = useState(true);
@@ -34,15 +35,15 @@ const HomePage = (props) => {
       <div>
         <div className={homeCss.mainDivHome}>
           <Link className={homeCss.headLink} to='/'>
-            <h3
+            <h1
               className={homeCss.h3Head}
               onClick={() => {
                 setDisplayBlogs(true);
                 setDisplayUser(false);
               }}
             >
-              Welcome to the Blogging App
-            </h3>
+              Blogging App
+            </h1>
           </Link>
           <NavPage
             name={name}
@@ -53,6 +54,7 @@ const HomePage = (props) => {
             setDisplayUser={setDisplayUser}
             getFilterName={getFilterName}
             setDisplayBlogs={setDisplayBlogs}
+            setEditMode={setEditMode}
           />
         </div>
         {addBlog && <ShareForm setAddBlog={setAddBlog} setName={setName} />}
@@ -69,7 +71,15 @@ const HomePage = (props) => {
             )}
           </div>
           {/* DISPLAY BLOGS */}
-          {displayBlogs && <Blogs newArr={newArr} />}
+          {displayBlogs && (
+            <Blogs
+              newArr={newArr}
+              setAddBlog={setAddBlog}
+              setName={setName}
+              editMode={editMode}
+              setEditMode={setEditMode}
+            />
+          )}
         </main>
       )}
       <Outlet />

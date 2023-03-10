@@ -10,6 +10,7 @@ const CATEGORIES = [
   { name: 'health', color: '#14b8a6' },
   { name: 'history', color: '#f97316' },
   { name: 'news', color: '#8b5cf6' },
+  { name: 'others', color: '#881337' },
 ];
 
 const FilterListDisplay = (props) => {
