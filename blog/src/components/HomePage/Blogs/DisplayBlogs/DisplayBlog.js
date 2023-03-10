@@ -1,8 +1,12 @@
 import blogCss from './Blogs.module.css';
+import axios from 'axios';
 import Button from '../../../UI/Button';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import UserContext from '../../../../context/user-context';
 import VoteHandler from './VoteHandler';
+import ReplyInputForm from '../../../UI/ReplyInputForm';
+import BlogContext from '../../../../context/blog-context';
+import DisplayMainReply from '../Reply/MainReply/MainReplyDisplay';
 
 const CATEGORIES = [
   { name: 'technology', color: '#3b82f6' },
@@ -24,7 +28,30 @@ const BlogDisplay = ({
   setAddBlog,
   setName,
 }) => {
+  const blog = useContext(BlogContext);
   const userData = useContext(UserContext);
+  // console.log(blog);
+  const [isReply, setIsReply] = useState(false);
+  const getData = (data) => {
+    console.log(data, each._id);
+    // console.log(blog.fact.find((e) => e._id === each._id));
+    axios
+      .post('/addReply', {
+        text: data,
+        blogId: each._id,
+        userId: userData.user._id,
+        userName: userData.user.username,
+      })
+      .then((res) => {
+        console.log(res);
+        blog.setFetchBlogs((old) => !old);
+      })
+      .catch((err) => {
+        console.log(err);
+        window.alert('Session timeout Please Login');
+        window.location.reload();
+      });
+  };
   const id = userData.user ? userData.user._id : null;
   return (
     <li className={blogCss.blogLi}>
@@ -47,7 +74,11 @@ const BlogDisplay = ({
           >
             {each.category}
           </span>
-          <VoteHandler user={userData.user} each={each} />
+          <VoteHandler
+            user={userData.user}
+            each={each}
+            setIsReply={setIsReply}
+          />
         </div>
         <div className={blogCss.editDeleteBtn}>
           {id === each.user && (
@@ -71,6 +102,14 @@ const BlogDisplay = ({
             />
           )}
         </div>
+      </div>
+      <div className={blogCss.replyInput}>
+        <ReplyInputForm
+          isReply={isReply}
+          setIsReply={setIsReply}
+          getData={getData}
+        />
+        <DisplayMainReply id={each._id} userId={id} />
       </div>
     </li>
   );

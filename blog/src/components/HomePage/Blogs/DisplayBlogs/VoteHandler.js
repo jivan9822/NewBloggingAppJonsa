@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react';
+import Button from '../../../UI/Button';
 import blogCss from './Blogs.module.css';
 
 const x = 'rgb(77, 77, 77)';
 const y = 'rgb(122, 122, 125)';
 
-const VoteHandler = ({ user, each }) => {
+const VoteHandler = ({ user, each, setIsReply }) => {
   const [actionData, getActionData] = useState({
     blogId: '',
     field: '',
@@ -91,6 +92,15 @@ const VoteHandler = ({ user, each }) => {
       >
         ⛔️ {each.disLike}
       </button>
+      <Button
+        name='💬'
+        setIsReply={setIsReply}
+        name2={each.replies.length}
+        id={each._id}
+        style={{
+          backgroundColor: y,
+        }}
+      />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const user = require('../controller/User');
 const blog = require('../controller/Blog');
+const reply = require('../controller/Reply');
 const auth = require('../Middleware/authorization');
 
 // USER ROUTES
@@ -16,4 +17,6 @@ router.post('/deleteBlog', auth.protect, blog.deleteBlog);
 router.post('/action', auth.protect, blog.recordAction);
 router.get('/getblogs', auth.protect, blog.getAllBlogs);
 
+// REPLY Route
+router.post('/addReply', auth.protect, reply.addMainReply);
 module.exports = router;

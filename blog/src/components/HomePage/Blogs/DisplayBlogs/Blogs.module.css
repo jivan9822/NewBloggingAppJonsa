@@ -69,3 +69,6 @@
   display: flex;
   flex-direction: column;
 }
+.replyInput {
+  grid-column: 1 / -1;
+}

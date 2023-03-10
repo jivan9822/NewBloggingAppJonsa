@@ -12,6 +12,8 @@ import UserContext from './context/user-context';
 const App = () => {
   // STATE TO GET DATA OF USER FROM LOGIN PAGE
   const [userData, getUserData] = useState(null);
+  // A BOOLEAN DEPENDENCY TO FETCH UPDATED BLOGS
+  const [fetchBlogs, setFetchBlogs] = useState(false);
   // STATE TO GET DATA OF BLOGS/FACTS
   const [facts, setFacts] = useState([]);
 
@@ -24,20 +26,20 @@ const App = () => {
       .get('/getblogs')
       .then((res) => {
         const blogs = res.data.data.blogs;
-        // BLOGS SET TO FACTS
+        // BLOGS SET TO FACTS AND SORTED BY NEWEST ADDED OR UPDATED
         setFacts(blogs.reverse().sort((a, b) => a.pubLishedAt > b.pubLishedAt));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-  // console.log(facts);
+  }, [fetchBlogs]);
   return (
     <BlogContext.Provider
       value={{
         isUpdate: false,
         fact: facts,
         setFacts: setFacts,
+        setFetchBlogs,
       }}
     >
       <UserContext.Provider

@@ -41,8 +41,18 @@ const blogSchema = mongoose.Schema(
       default: 'approved',
     },
   },
-  { timestamp: true }
+  {
+    timestamp: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
+
+blogSchema.virtual('replies', {
+  ref: 'Reply',
+  foreignField: 'blogId',
+  localField: '_id',
+});
 
 const Blog = mongoose.model('Blog', blogSchema);
 module.exports = Blog;
