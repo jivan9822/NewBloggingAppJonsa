@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 const col = [
   'white',
   '#3b82f6',
@@ -18,7 +19,6 @@ const styles = {
   alignItems: 'center',
 };
 const MainReplyHandler = (props) => {
-  console.log(props.id);
   const [text, setText] = useState(props.text);
   const [isEdit, setEdit] = useState(false);
   const onChangeHandler = (e) => {
@@ -34,27 +34,30 @@ const MainReplyHandler = (props) => {
     if (e.key === 'Enter') {
     }
   };
+
   return (
-    <div style={styles}>
-      <p onClick={() => setEdit((old) => !old)}>✏️ </p>
-      {isEdit ? (
-        <input
-          type='text'
-          value={text}
-          onChange={onChangeHandler}
-          onKeyDown={onKeyPress}
-        />
-      ) : (
-        <p
-          style={{
-            backgroundColor: col[props.ind % 10],
-            padding: '3px',
-          }}
-        >
-          {props.text}
-        </p>
-      )}
-      <p> ❌</p>
+    <div>
+      <div style={styles}>
+        <p onClick={() => setEdit((old) => !old)}>✏️ </p>
+        {isEdit ? (
+          <input
+            type='text'
+            value={text}
+            onChange={onChangeHandler}
+            onKeyDown={onKeyPress}
+          />
+        ) : (
+          <p
+            style={{
+              backgroundColor: col[props.ind % 10],
+              padding: '3px',
+            }}
+          >
+            {props.text}
+          </p>
+        )}
+        <p> ❌</p>
+      </div>
     </div>
   );
 };
