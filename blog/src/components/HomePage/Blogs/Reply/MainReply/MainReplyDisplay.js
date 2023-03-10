@@ -1,17 +1,7 @@
 import BlogContext from '../../../../../context/blog-context';
 import { useContext } from 'react';
-const col = [
-  'white',
-  '#3b82f6',
-  '#16a34a',
-  '#ef4444',
-  '#eab308',
-  '#db2777',
-  '#14b8a6',
-  '#f97316',
-  '#8b5cf6',
-  '#881337',
-];
+import MainReplyHandler from './MainReplyHandler';
+
 const DisplayMainReply = (props) => {
   const styles = {
     display: 'flex',
@@ -19,28 +9,16 @@ const DisplayMainReply = (props) => {
     boxSizing: 'border-box',
     alignItems: 'center',
   };
-
   const blog = useContext(BlogContext);
   const oneBlog = blog.fact.find((each) => each._id === props.id);
+  console.log(oneBlog);
   return (
     <div>
       {oneBlog.replies.map((each, ind) => (
         <div key={each._id} style={styles}>
           <div style={{ color: 'orangered' }}>{each.userName}</div>
           {each.userId === props.userId ? (
-            <div style={styles}>
-              <p>✏️ </p>
-              <p
-                style={{
-                  backgroundColor: col[ind % 10],
-                  padding: '3px',
-                }}
-              >
-                {each.text}
-              </p>
-
-              <p> ❌</p>
-            </div>
+            <MainReplyHandler text={each.text} ind={ind} id={each._id} />
           ) : (
             <p>{each.text}</p>
           )}
