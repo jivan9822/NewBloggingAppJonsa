@@ -6,7 +6,7 @@ import blogCss from './Blogs.module.css';
 const x = 'rgb(77, 77, 77)';
 const y = 'rgb(122, 122, 125)';
 
-const VoteHandler = ({ user, each, setIsReply }) => {
+const VoteHandler = ({ user, each, setIsReply, setReplyDisplay }) => {
   const [actionData, getActionData] = useState({
     blogId: '',
     field: '',
@@ -97,6 +97,7 @@ const VoteHandler = ({ user, each, setIsReply }) => {
         setIsReply={setIsReply}
         name2={each.replies.length}
         id={each._id}
+        onClickHandel={setReplyDisplay}
         style={{
           backgroundColor: y,
         }}

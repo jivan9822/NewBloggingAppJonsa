@@ -33,8 +33,14 @@ const replySchema = mongoose.Schema(
             type: String,
             required: true,
           },
+          repliedAt: {
+            type: Date,
+            required: true,
+            default: Date.now(),
+          },
         },
       ],
+      default: [],
     },
     repliedAt: {
       type: Date,

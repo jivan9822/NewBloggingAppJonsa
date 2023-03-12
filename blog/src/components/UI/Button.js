@@ -14,9 +14,20 @@ const Button = (props) => {
       id={props.id}
     >
       {props.name2 >= 0 ? (
-        <span>
+        <span
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <span onClick={replyHandler}>{props.name}</span>
-          <span>{props.name2}</span>
+          <span
+            onClick={() => {
+              props.onClickHandel((old) => !old);
+            }}
+          >
+            {props.name2}
+          </span>
         </span>
       ) : (
         <span>{props.name}</span>

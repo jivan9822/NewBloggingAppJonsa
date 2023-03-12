@@ -1,6 +1,6 @@
 import BlogContext from '../../../../../context/blog-context';
 import { useContext } from 'react';
-import ReplyHandler from './ReplyHandler2';
+import ReplyHandler from '../SubReply/ReplyHandler2';
 
 const DisplayMainReply = (props) => {
   const blog = useContext(BlogContext);
@@ -13,6 +13,8 @@ const DisplayMainReply = (props) => {
           each={each}
           userId={props.userId}
           ind={ind}
+          subReplies={each.subReplies}
+          onClickHandel2={props.setIsDisplayReply}
         />
       ))}
     </div>

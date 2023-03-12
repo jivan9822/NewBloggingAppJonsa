@@ -32,6 +32,7 @@ const BlogDisplay = ({
   const userData = useContext(UserContext);
   // console.log(blog);
   const [isReply, setIsReply] = useState(false);
+  const [isDisplayReply, setReplyDisplay] = useState(false);
   const getData = (data) => {
     console.log(data, each._id);
     // console.log(blog.fact.find((e) => e._id === each._id));
@@ -78,6 +79,7 @@ const BlogDisplay = ({
             user={userData.user}
             each={each}
             setIsReply={setIsReply}
+            setReplyDisplay={setReplyDisplay}
           />
         </div>
         <div className={blogCss.editDeleteBtn}>
@@ -109,7 +111,7 @@ const BlogDisplay = ({
           setIsReply={setIsReply}
           getData={getData}
         />
-        <DisplayMainReply id={each._id} userId={id} />
+        {isDisplayReply && <DisplayMainReply id={each._id} userId={id} />}
       </div>
     </li>
   );
