@@ -4,9 +4,6 @@ const Blog = require('../Model/blogModel');
 const User = require('../Model/userModel');
 
 exports.addBlog = CatchAsync(async (req, res, next) => {
-  if (!req.body.data.source.length) {
-    req.body.data.source = '#';
-  }
   req.body.data.user = req.user._id;
   const blog = await Blog.create(req.body.data);
   res.status(201).json({
@@ -53,6 +50,7 @@ exports.deleteBlog = CatchAsync(async (req, res, next) => {
 
 // THIS ROUTE HANDLE THE USERS VOTE TO BLOG
 exports.recordAction = CatchAsync(async (req, res, next) => {
+  console.log(req.body);
   const { blogId, field, userId, action } = req.body;
 
   const user = await User.findById(userId);

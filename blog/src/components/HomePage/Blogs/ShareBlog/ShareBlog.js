@@ -10,13 +10,13 @@ const ShareForm = (props) => {
     axios
       .post('/addBlog', blog)
       .then((res) => {
-        const newBlog = res.data.data.blog;
-        blogs.setFacts((old) => [newBlog, ...old]);
+        blogs.setFetchBlogs((old) => !old);
       })
       .catch((err) => {
         console.log(err);
-        alert('Your Session expired! Please login!');
-        window.location.reload();
+         if (err.response.status === 401) {
+           window.location.reload();
+         }
       });
   };
   return (

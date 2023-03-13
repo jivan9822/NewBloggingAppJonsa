@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import ConfirmAlert from '../../../../AlertMsg/ConfirmAlert';
 import BlogContext from '../../../../../context/blog-context';
+import classes from './ReplyHandler2.module.css';
 
 const col = [
   'white',
@@ -15,11 +16,7 @@ const col = [
   '#8b5cf6',
   '#881337',
 ];
-const styles = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '20px',
-};
+
 const style2 = {
   cursor: 'pointer',
 };
@@ -54,6 +51,9 @@ const SubReplyHelper = ({ each, userId, mainReplyId, ind }) => {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 401) {
+          window.location.reload();
+        }
       });
   };
   const onDeleteHandler = (e) => {
@@ -66,11 +66,14 @@ const SubReplyHelper = ({ each, userId, mainReplyId, ind }) => {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 401) {
+          window.location.reload();
+        }
       });
   };
   return each.userId === userId ? (
-    <div style={styles}>
-      <p>{each.userName}</p>
+    <div className={classes.subReplyDiv}>
+      <p className={classes.userName2}>{each.userName.slice(0, 1)}</p>
       <p onClick={onEditHandler} style={style2}>
         ✏️{' '}
       </p>
@@ -97,9 +100,16 @@ const SubReplyHelper = ({ each, userId, mainReplyId, ind }) => {
       <ConfirmAlert name='❌' onClick={onDeleteHandler} />
     </div>
   ) : (
-    <div style={styles}>
-      <p>{each.userName}</p>
-      <p>{each.text}</p>
+    <div className={classes.subReplyDiv}>
+      <p className={classes.userName2}>{each.userName.slice(0, 1)}</p>
+      <p
+        style={{
+          backgroundColor: col[ind % 10],
+          padding: '3px',
+        }}
+      >
+        {each.text}
+      </p>
     </div>
   );
 };

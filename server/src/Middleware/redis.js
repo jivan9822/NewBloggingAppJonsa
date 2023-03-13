@@ -1,6 +1,6 @@
 const redis = require('redis');
 
-const defaultExpiration = 6000;
+const defaultExpiration = 20;
 
 const clint = redis.createClient({
   socket: {

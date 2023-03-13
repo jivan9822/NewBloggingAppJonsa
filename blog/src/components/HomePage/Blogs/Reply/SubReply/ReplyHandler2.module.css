@@ -15,6 +15,19 @@
   border-radius: 50%;
   align-items: center;
   justify-content: center;
+  margin-left: 3px;
+}
+.userName2 {
+  color: black;
+  display: flex;
+  background-color: rgb(112, 112, 112);
+  width: 15px;
+  height: 15px;
+  padding: 10px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  margin-left: 3px;
 }
 .liDiv {
   margin-bottom: 10px;
@@ -24,4 +37,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.subReplyDiv {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgb(52, 47, 47);
+  margin: 10px;
+  margin-left: 20px;
 }

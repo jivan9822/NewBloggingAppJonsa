@@ -20,8 +20,9 @@ const UpdateBlog = (props) => {
       })
       .catch((err) => {
         console.log(err);
-        alert('Your Session expired! Please login!');
-        window.location.reload();
+         if (err.response.status === 401) {
+           window.location.reload();
+         }
       });
   };
 

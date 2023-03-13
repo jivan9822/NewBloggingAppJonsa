@@ -7,6 +7,7 @@ import VoteHandler from './VoteHandler';
 import ReplyInputForm from '../../../UI/ReplyInputForm';
 import BlogContext from '../../../../context/blog-context';
 import DisplayMainReply from '../Reply/MainReply/MainReplyDisplay';
+import ConfirmAlert from '../../../AlertMsg/ConfirmAlert';
 
 const CATEGORIES = [
   { name: 'technology', color: '#3b82f6' },
@@ -31,6 +32,20 @@ const BlogDisplay = ({
   const blog = useContext(BlogContext);
   const userData = useContext(UserContext);
   // console.log(blog);
+  const onDeleteHandler = (e) => {
+    e.preventDefault();
+    axios
+      .post('/deleteBlog', { id: each._id })
+      .then((res) => {
+        blog.setFetchBlogs((old) => !old);
+      })
+      .catch((err) => {
+        console.log(err);
+         if (err.response.status === 401) {
+           window.location.reload();
+         }
+      });
+  };
   const [isReply, setIsReply] = useState(false);
   const [isDisplayReply, setReplyDisplay] = useState(false);
   const getData = (data) => {
@@ -95,20 +110,14 @@ const BlogDisplay = ({
             />
           )}
           {id === each.user && (
-            <Button
-              name='❌'
-              onClick={(e) => {
-                e.preventDefault();
-                if (window.confirm('Are you sure?')) setDeleteId(each._id);
-              }}
-            />
+            <ConfirmAlert name='❌' onClick={onDeleteHandler} />
           )}
         </div>
       </div>
       <Button
         name='Reply'
         setIsReply={setIsReply}
-        name2={each.replies.length}
+        name2={each.replies ? each.replies.length : []}
         id={each._id}
         onClickHandel={setReplyDisplay}
       />

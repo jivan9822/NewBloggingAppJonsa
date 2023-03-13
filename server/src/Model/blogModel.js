@@ -12,11 +12,11 @@ const blogSchema = mongoose.Schema(
     },
     source: {
       type: String,
-      required: [true, 'Please source URL'],
+      default: '#',
     },
     category: {
       type: String,
-      required: [true, 'Please provide category of blog'],
+      default: 'others',
     },
     like: {
       type: Number,
