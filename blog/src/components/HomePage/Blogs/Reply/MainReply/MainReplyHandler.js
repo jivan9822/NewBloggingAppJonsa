@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
-import BlogContext from '../../../../../../context/blog-context';
-import ConfirmAlert from '../../../../../AlertMsg/ConfirmAlert';
+import BlogContext from '../../../../../context/blog-context';
+import ConfirmAlert from '../../../../AlertMsg/ConfirmAlert';
 
 const col = [
   'white',

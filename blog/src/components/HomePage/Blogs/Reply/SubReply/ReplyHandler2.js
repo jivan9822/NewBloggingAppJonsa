@@ -1,9 +1,10 @@
-import Button from '../../../../../UI/Button';
-import MainReplyHandler from '../../MainReply/MainReplyDisplay/MainReplyHandler';
+import Button from '../../../../UI/Button';
+import MainReplyHandler from '../MainReply/MainReplyHandler';
 import { useState, useContext } from 'react';
-import ReplyInputForm from '../../../../../UI/ReplyInputForm';
+import ReplyInputForm from '../../../../UI/ReplyInputForm';
 import axios from 'axios';
-import BlogContext from '../../../../../../context/blog-context';
+import BlogContext from '../../../../../context/blog-context';
+import SubReplyHelper from './subReplyHelper';
 
 const styles = {
   display: 'flex',
@@ -12,8 +13,6 @@ const styles = {
   alignItems: 'center',
 };
 const ReplyHandler = ({ each, userId, ind, subReplies, onClickHandel2 }) => {
-  console.log(each);
-  console.log('ReplyId', each._id);
   const blogs = useContext(BlogContext);
   const [isReply, setIsReply] = useState(false);
   const [isSubReplyDisplay, setIsSubReplyDisplay] = useState(true);
@@ -67,22 +66,15 @@ const ReplyHandler = ({ each, userId, ind, subReplies, onClickHandel2 }) => {
       )}
 
       {isSubReplyDisplay &&
-        subReplies.map((each) => {
-          return each.userId === userId ? (
-            <div
-              key={each._id}
-              style={{ display: 'flex', alignItems: 'center', gap: '20px' }}
-            >
-              <span>✏️ </span>
-              <p>{each.text}</p>
-              <span> ❌</span>
-            </div>
-          ) : (
-            <div key={each._id}>
-              <p>{each.text}</p>
-            </div>
-          );
-        })}
+        subReplies.map((e, ind) => (
+          <SubReplyHelper
+            each={e}
+            key={e._id}
+            userId={userId}
+            mainReplyId={each._id}
+            ind={ind}
+          />
+        ))}
     </div>
   );
 };

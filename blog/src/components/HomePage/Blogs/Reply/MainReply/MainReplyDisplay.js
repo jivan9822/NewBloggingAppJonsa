@@ -1,6 +1,6 @@
-import BlogContext from '../../../../../../context/blog-context';
+import BlogContext from '../../../../../context/blog-context';
 import { useContext } from 'react';
-import ReplyHandler from '../../SubReply/SubReplyDisplay/ReplyHandler2';
+import ReplyHandler from '../SubReply/ReplyHandler2';
 
 const DisplayMainReply = (props) => {
   const blog = useContext(BlogContext);

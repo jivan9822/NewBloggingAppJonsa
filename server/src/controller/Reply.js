@@ -1,5 +1,6 @@
 const { CatchAsync } = require('../Error/CatchAsync');
 const Reply = require('../Model/replyModel');
+const mongoose = require('mongoose');
 
 exports.addMainReply = CatchAsync(async (req, res, next) => {
   console.log(req.body);
@@ -61,4 +62,59 @@ exports.addSubReply = CatchAsync(async (req, res, next) => {
       data: reply,
     },
   });
+});
+
+// MyModel.findByIdAndUpdate(
+//   parentId,
+//   { $set: { 'nestedArray.$[elem].name': newName } },
+//   { new: true, arrayFilters: [{ 'elem._id': objectId }] },
+//   (err, result) => {
+//     if (err) {
+//       console.error(err);
+//     } else {
+//       console.log(result);
+//     }
+//   }
+// );
+
+exports.updateSubReply = CatchAsync(async (req, res, next) => {
+  const objectId = mongoose.Types.ObjectId(req.body.id);
+  const reply = await Reply.findByIdAndUpdate(
+    req.body.mainReplyId,
+    {
+      $set: { 'subReplies.$[elem].text': req.body.text },
+    },
+    {
+      new: true,
+      arrayFilters: [{ 'elem._id': objectId }],
+    }
+  );
+  //!this is one of method to update
+  // const reply = await Reply.findById(req.body.mainReplyId);
+  // reply.subReplies.forEach((each) => {
+  //   if (ObjectId(req.body.id).equals(each._id)) {
+  //     each.text = req.body.text;
+  //   }
+  // });
+  // await reply.save();
+  res.status(200).json({
+    status: true,
+    message: 'Update subReply success!',
+    data: {
+      reply,
+    },
+  });
+});
+
+exports.deleteSubReply = CatchAsync(async (req, res, next) => {
+  console.log(req.body);
+  const reply = await Reply.findByIdAndUpdate(
+    req.body.mainReplyId,
+    {
+      $pull: { subReplies: { _id: req.body.id } },
+    },
+    { new: true }
+  );
+  console.log(reply);
+  res.send('DeleteSubReply');
 });
