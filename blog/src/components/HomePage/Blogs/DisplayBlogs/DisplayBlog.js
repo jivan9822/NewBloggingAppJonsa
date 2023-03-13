@@ -6,7 +6,7 @@ import UserContext from '../../../../context/user-context';
 import VoteHandler from './VoteHandler';
 import ReplyInputForm from '../../../UI/ReplyInputForm';
 import BlogContext from '../../../../context/blog-context';
-import DisplayMainReply from '../Reply/MainReply/MainReplyDisplay';
+import DisplayMainReply from '../Reply/MainReply/MainReplyDisplay/MainReplyDisplay';
 
 const CATEGORIES = [
   { name: 'technology', color: '#3b82f6' },

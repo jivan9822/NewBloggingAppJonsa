@@ -1,9 +1,9 @@
-import Button from '../../../../UI/Button';
-import MainReplyHandler from '../MainReply/MainReplyHandler';
+import Button from '../../../../../UI/Button';
+import MainReplyHandler from '../../MainReply/MainReplyDisplay/MainReplyHandler';
 import { useState, useContext } from 'react';
-import ReplyInputForm from '../../../../UI/ReplyInputForm';
+import ReplyInputForm from '../../../../../UI/ReplyInputForm';
 import axios from 'axios';
-import BlogContext from '../../../../../context/blog-context';
+import BlogContext from '../../../../../../context/blog-context';
 
 const styles = {
   display: 'flex',
@@ -12,6 +12,8 @@ const styles = {
   alignItems: 'center',
 };
 const ReplyHandler = ({ each, userId, ind, subReplies, onClickHandel2 }) => {
+  console.log(each);
+  console.log('ReplyId', each._id);
   const blogs = useContext(BlogContext);
   const [isReply, setIsReply] = useState(false);
   const [isSubReplyDisplay, setIsSubReplyDisplay] = useState(true);

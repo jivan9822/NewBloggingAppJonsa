@@ -13,6 +13,33 @@ exports.addMainReply = CatchAsync(async (req, res, next) => {
   });
 });
 
+exports.updateMainReply = CatchAsync(async (req, res, next) => {
+  const reply = await Reply.findByIdAndUpdate(
+    req.body.id,
+    {
+      $set: { text: req.body.text },
+    },
+    { new: true }
+  );
+  res.status(200).json({
+    status: true,
+    message: 'Main reply update success!',
+    data: {
+      reply,
+    },
+  });
+});
+
+exports.deleteMainReply = CatchAsync(async (req, res, next) => {
+  console.log(req.body);
+  const reply = await Reply.findByIdAndDelete(req.body.id);
+  res.status(204).json({
+    status: true,
+    message: 'Reply delete success!',
+    data: null,
+  });
+});
+
 exports.addSubReply = CatchAsync(async (req, res, next) => {
   const id = req.body.data.id;
   delete req.body.data.id;
