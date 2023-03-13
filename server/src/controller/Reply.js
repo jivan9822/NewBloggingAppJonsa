@@ -3,7 +3,6 @@ const Reply = require('../Model/replyModel');
 const mongoose = require('mongoose');
 
 exports.addMainReply = CatchAsync(async (req, res, next) => {
-  console.log(req.body);
   const reply = await Reply.create(req.body);
   res.status(201).json({
     status: true,
@@ -32,7 +31,6 @@ exports.updateMainReply = CatchAsync(async (req, res, next) => {
 });
 
 exports.deleteMainReply = CatchAsync(async (req, res, next) => {
-  console.log(req.body);
   const reply = await Reply.findByIdAndDelete(req.body.id);
   res.status(204).json({
     status: true,
@@ -107,7 +105,6 @@ exports.updateSubReply = CatchAsync(async (req, res, next) => {
 });
 
 exports.deleteSubReply = CatchAsync(async (req, res, next) => {
-  console.log(req.body);
   const reply = await Reply.findByIdAndUpdate(
     req.body.mainReplyId,
     {
@@ -115,6 +112,9 @@ exports.deleteSubReply = CatchAsync(async (req, res, next) => {
     },
     { new: true }
   );
-  console.log(reply);
-  res.send('DeleteSubReply');
+  res.status(204).json({
+    status: true,
+    message: 'Delete Success!',
+    data: null,
+  });
 });
