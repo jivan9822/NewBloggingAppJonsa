@@ -4,3 +4,24 @@
   box-sizing: 'border-box';
   align-items: 'center';
 }
+/* style={{ color: 'orangered', fontSize: '10px' }} */
+.userName {
+  color: black;
+  display: flex;
+  background-color: white;
+  width: 15px;
+  height: 15px;
+  padding: 10px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.liDiv {
+  margin-bottom: 10px;
+  border: 2px solid black;
+}
+.liDiv2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

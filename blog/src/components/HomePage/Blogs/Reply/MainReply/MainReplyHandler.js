@@ -31,10 +31,7 @@ const MainReplyHandler = (props) => {
   const onChangeHandler = (e) => {
     setText(e.target.value);
   };
-  console.log(text);
   const onEditHandler = (e) => {
-    console.log('ReplyId', props.id);
-
     setEdit((old) => !old);
   };
   const onKeyPress = (e) => {

@@ -5,13 +5,8 @@ import ReplyInputForm from '../../../../UI/ReplyInputForm';
 import axios from 'axios';
 import BlogContext from '../../../../../context/blog-context';
 import SubReplyHelper from './subReplyHelper';
+import classes from './ReplyHandler2.module.css';
 
-const styles = {
-  display: 'flex',
-  gap: '20px',
-  boxSizing: 'border-box',
-  alignItems: 'center',
-};
 const ReplyHandler = ({ each, userId, ind, subReplies, onClickHandel2 }) => {
   const blogs = useContext(BlogContext);
   const [isReply, setIsReply] = useState(false);
@@ -31,9 +26,9 @@ const ReplyHandler = ({ each, userId, ind, subReplies, onClickHandel2 }) => {
       });
   };
   return (
-    <div style={{ marginLeft: '20px' }}>
-      <div key={each._id} style={styles}>
-        <div style={{ color: 'orangered' }}>{each.userName}</div>
+    <li className={classes.liDiv}>
+      <div className={classes.liDiv2}>
+        <div className={classes.userName}>{each.userName.slice(0, 1)}</div>
         {each.userId === userId ? (
           <MainReplyHandler
             text={each.text}
@@ -71,7 +66,7 @@ const ReplyHandler = ({ each, userId, ind, subReplies, onClickHandel2 }) => {
             ind={ind}
           />
         ))}
-    </div>
+    </li>
   );
 };
 
