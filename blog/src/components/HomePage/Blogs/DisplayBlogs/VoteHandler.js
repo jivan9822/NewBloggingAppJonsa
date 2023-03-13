@@ -92,16 +92,6 @@ const VoteHandler = ({ user, each, setIsReply, setReplyDisplay }) => {
       >
         ⛔️ {each.disLike}
       </button>
-      <Button
-        name='💬'
-        setIsReply={setIsReply}
-        name2={each.replies.length}
-        id={each._id}
-        onClickHandel={setReplyDisplay}
-        style={{
-          backgroundColor: y,
-        }}
-      />
     </div>
   );
 };

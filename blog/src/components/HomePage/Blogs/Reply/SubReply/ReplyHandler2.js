@@ -15,7 +15,7 @@ const styles = {
 const ReplyHandler = ({ each, userId, ind, subReplies, onClickHandel2 }) => {
   const blogs = useContext(BlogContext);
   const [isReply, setIsReply] = useState(false);
-  const [isSubReplyDisplay, setIsSubReplyDisplay] = useState(true);
+  const [isSubReplyDisplay, setIsSubReplyDisplay] = useState(false);
   // const [subReplies, setSubReplies] = useState([]);
   const getData = (data) => {
     const sendData = { text: data, id: each._id };
@@ -31,7 +31,7 @@ const ReplyHandler = ({ each, userId, ind, subReplies, onClickHandel2 }) => {
       });
   };
   return (
-    <div>
+    <div style={{ marginLeft: '20px' }}>
       <div key={each._id} style={styles}>
         <div style={{ color: 'orangered' }}>{each.userName}</div>
         {each.userId === userId ? (
@@ -46,15 +46,11 @@ const ReplyHandler = ({ each, userId, ind, subReplies, onClickHandel2 }) => {
           <p>{each.text}</p>
         )}
         <Button
-          name='💬'
+          name='Reply'
           setIsReply={setIsReply}
           name2={each.subReplies.length}
           onClickHandel={setIsSubReplyDisplay}
           id={each._id}
-          style={{
-            backgroundColor: 'rgb(122, 122, 125)',
-            borderRadius: '30px',
-          }}
         />
       </div>
       {isReply && (

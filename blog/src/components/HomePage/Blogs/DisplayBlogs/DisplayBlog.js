@@ -105,6 +105,13 @@ const BlogDisplay = ({
           )}
         </div>
       </div>
+      <Button
+        name='Reply'
+        setIsReply={setIsReply}
+        name2={each.replies.length}
+        id={each._id}
+        onClickHandel={setReplyDisplay}
+      />
       <div className={blogCss.replyInput}>
         <ReplyInputForm
           isReply={isReply}

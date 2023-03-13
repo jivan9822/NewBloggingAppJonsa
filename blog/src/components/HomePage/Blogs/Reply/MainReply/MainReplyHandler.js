@@ -95,10 +95,6 @@ const MainReplyHandler = (props) => {
             {text}
           </p>
         )}
-        {/* <p style={style2} onClick={onDeleteHandler}>
-          {' '}
-          ❌
-        </p> */}
         <ConfirmAlert name='❌' onClick={onDeleteHandler} />
       </div>
     </div>

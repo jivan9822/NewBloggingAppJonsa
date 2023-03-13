@@ -1,4 +1,17 @@
 .btn {
   background-color: transparent;
   cursor: pointer;
+  transition: 0.5s;
+}
+.replyBtnDiv {
+  display: flex;
+  width: max-content;
+  border-radius: 20px;
+  transition: 0.5s;
+}
+.replyBtnDiv:hover {
+  background-color: #1a1a1b;
+}
+.btn:hover {
+  color: white;
 }
